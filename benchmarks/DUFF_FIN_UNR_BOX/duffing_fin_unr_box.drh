@@ -1,0 +1,35 @@
+// Duffing oscillator system reachability verification
+// Based on benchmark_DUFF_FIN_REA configuration
+// System: dx1/dt = x2, dx2/dt = -0.5*x2 - x1*(x1^2-1)
+// Initial set: x1 ∈ [-0.8, -0.7], x2 ∈ [1.3, 1.35]
+// Target set: x1 ∈ [0.7, 0.8], x2 ∈ [0.178, 0.3]
+// Time horizon: [0, 6], Expected: reachable
+
+[-1, 1.5] x1;
+[-1, 1.5] x2;
+
+[0, 20] tau;
+[0, 20] time;
+
+{mode 1;
+
+invt:   (x1 >= -1);
+	(x1 <= 1.5);
+	(x2 >= -1);
+	(x2 <= 1.5);
+	(tau <= 6);
+
+flow:
+	d/dt[x1] = x2; 
+	d/dt[x2] = -0.5 * x2 - x1 * (x1 * x1 - 1); 
+	d/dt[tau] = 1;
+
+jump: true ==> @1 true ;
+
+}
+
+init:
+@1 (and (x1 >= -0.8) (x1 <= -0.7) (x2 >= 1.3) (x2 <= 1.35) (tau = 0));
+
+goal:
+@1 (and (x1 >= 0.7) (x1 <= 0.8) (x2 >= 0.178) (x2 <= 0.3) (tau >= 0) (tau <= 20));

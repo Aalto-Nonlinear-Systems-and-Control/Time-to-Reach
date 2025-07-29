@@ -1,0 +1,124 @@
+{
+    "benchmark": {
+        "name": "benchmark_cp_lqr",
+        "description": "4D nonlinear control system (CP-LQR) reachability verification"
+    },
+    "system": {
+        "type": "nonlinear",
+        "dynamics": {
+            "equations": [
+                "x2",
+                "(-3.16227766016837*x1 - 6.69810360685677*x2 - 5.02657663490373*x3 - 1.6165296244068*x4 + 2*(x4^2 - 9.8065*cos(x3))*sin(x3))/(2*sin(x3)^2 + 3)",
+                "x4",
+                "(2*x4^2*sin(x3)*cos(x3) + (-3.16227766016837*x1 - 6.69810360685677*x2 - 5.02657663490373*x3 - 1.6165296244068*x4)*cos(x3) - 49.0325*sin(x3))/(2*sin(x3)^2 + 3)"
+            ]
+        }
+    },
+    "initial_sets": [
+        {
+            "type": "box",
+            "bounds": [
+                [
+                    0.8,
+                    0.8
+                ],
+                [
+                    0.3,
+                    0.3
+                ],
+                [
+                    -0.785398,
+                    -0.785398
+                ],
+                [
+                    0.2,
+                    0.2
+                ]
+            ]
+        }
+    ],
+    "domain_bounds": [
+        [
+            -5.0,
+            5.0
+        ],
+        [
+            -5.0,
+            5.0
+        ],
+        [
+            -3.14159,
+            3.14159
+        ],
+        [
+            -10.0,
+            10.0
+        ]
+    ],
+    "verification": {
+        "target_sets": [
+            {
+                "type": "box",
+                "bounds": [
+                    [
+                        -1,
+                        1
+                    ],
+                    [
+                        -1,
+                        1
+                    ],
+                    [
+                        -1,
+                        1
+                    ],
+                    [
+                        -2.5,
+                        2.5
+                    ]
+                ]
+            }
+        ],
+        "time_horizon": [
+            0.0,
+            10.0
+        ],
+        "expected_result": "reachable"
+    },
+    "hj_settings": {
+        "accuracy": "low",
+        "grid_size": 21
+    },
+    "checking": {
+        "vis_dims": [
+            [
+                0,
+                1
+            ],
+            [
+                2,
+                3
+            ]
+        ],
+        "num_samples": 50,
+        "random_seed": 42,
+        "domain": [
+            [
+                -2,
+                2.0
+            ],
+            [
+                -2.0,
+                2.0
+            ],
+            [
+                -3.14159,
+                3.14159
+            ],
+            [
+                -10.0,
+                10.0
+            ]
+        ]
+    }
+}

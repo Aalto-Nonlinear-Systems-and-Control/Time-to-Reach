@@ -1,0 +1,48 @@
+// Duffing oscillator system reachability verification
+// Based on benchmark_DUFF_FIN_REA_NONCONVEX_LEVEL_SET configuration
+// This file accurately represents the level set definitions from the config file.
+// NOTE: These complex, non-linear constraints may cause dReach to time out.
+
+#define x1_0_init -0.75
+#define x2_0_init 1.85
+#define r_init 0.05
+#define x1_norm_init ((x1 - x1_0_init) / r_init)
+#define x2_norm_init ((x2 - x2_0_init) / r_init)
+#define f_init (-(1 - (x1 - x1_0_init)/3 + (x2_norm_init^5) + 2*(x1_norm_init^3)) * exp(-(x1_norm_init^2 + x2_norm_init^2)) + 0.01)
+
+#define x1_0_target 0.65
+#define x2_0_target 0.25
+#define r_target 0.1
+#define x1_norm_target ((x1 - x1_0_target) / r_target)
+#define x2_norm_target ((x2 - x2_0_target) / r_target)
+#define f_target (-(1 - (x1 - x1_0_target)/3 + 3*(x2_norm_target^5) + 4*(x1_norm_target^3)) * exp(-(x1_norm_target^2 + x2_norm_target^2)) + 0.9)
+
+
+[-1, 1.7] x1;
+[-1.2, 2.2] x2;
+
+[0, 6] tau;
+[0, 6] time;
+
+{mode 1;
+
+invt:   (x1 >= -1);
+	(x1 <= 1.7);
+	(x2 >= -1.2);
+	(x2 <= 2.2);
+	(tau <= 6);
+
+flow:
+	d/dt[x1] = x2; 
+	d/dt[x2] = -0.5 * x2 - x1 * (x1^2 - 1); 
+	d/dt[tau] = 1;
+
+jump: true ==> @1 true ;
+
+}
+
+init:
+@1 (and (tau = 0) (f_init <= 0));
+
+goal:
+@1 (and (tau >= 0) (tau <= 6) (f_target <= 0)); 
