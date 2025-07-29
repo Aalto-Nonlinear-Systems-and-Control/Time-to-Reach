@@ -1,0 +1,48 @@
+// CP-LQR 4D Cart-Pole System Unsafe Set Reachability Verification
+// Based on CP-LQR cart-pole dynamics
+// System: 4D cart-pole control system
+//         dx1/dt = x2  (position derivative = velocity)
+//         dx2/dt = (-3.16227766016837*x1 - 6.69810360685677*x2 - 5.02657663490373*x3 - 1.6165296244068*x4 + 2*(x4^2 - 9.8065*cos(x3))*sin(x3))/(2*sin(x3)^2 + 3)
+//         dx3/dt = x4  (angle derivative = angular velocity)
+//         dx4/dt = (2*x4^2*sin(x3)*cos(x3) + (-3.16227766016837*x1 - 6.69810360685677*x2 - 5.02657663490373*x3 - 1.6165296244068*x4)*cos(x3) - 49.0325*sin(x3))/(2*sin(x3)^2 + 3)
+// Initial set: x1=0.8, x2=0.3, x3=-π/4, x4=0.2 (single point)
+// Unsafe target set: X_U^1 = {x | p + l*sin(theta) > 1.3} where l=1.0 (pole length)
+//                   = {x | x1 + 1.0*sin(x3) > 1.3}
+// Time horizon: [0, 10], Expected: reachable (unsafe)
+
+[-5.0, 5.0] x1;
+[-5.0, 5.0] x2;
+[-3.14159, 3.14159] x3;
+[-10.0, 10.0] x4;
+
+[0, 10] tau;
+[0, 10] time;
+
+{mode 1;
+
+invt:   (x1 >= -5.0);
+	(x1 <= 5.0);
+	(x2 >= -5.0);
+	(x2 <= 5.0);
+	(x3 >= -3.14159);
+	(x3 <= 3.14159);
+	(x4 >= -10.0);
+	(x4 <= 10.0);
+	(tau <= 10);
+
+flow:
+	d/dt[x1] = x2;
+	d/dt[x2] = (-3.16227766016837*x1 - 6.69810360685677*x2 - 5.02657663490373*x3 - 1.6165296244068*x4 + 2*(x4^2 - 9.8065*cos(x3))*sin(x3))/(2*sin(x3)^2 + 3);
+	d/dt[x3] = x4;
+	d/dt[x4] = (2*x4^2*sin(x3)*cos(x3) + (-3.16227766016837*x1 - 6.69810360685677*x2 - 5.02657663490373*x3 - 1.6165296244068*x4)*cos(x3) - 49.0325*sin(x3))/(2*sin(x3)^2 + 3);
+	d/dt[tau] = 1;
+
+jump: true ==> @1 true ;
+
+}
+
+init:
+@1 (and (x1 = 0.8) (x2 = 0.3) (x3 = -0.785398) (x4 = 0.2) (tau = 0));
+
+goal:
+@1 (and (x1 + sin(x3) >= 1.3) (tau >= 0) (tau <= 10));

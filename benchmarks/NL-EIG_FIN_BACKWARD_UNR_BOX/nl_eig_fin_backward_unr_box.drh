@@ -1,0 +1,36 @@
+// Nonlinear system BACKWARD reachability verification (NL-EIG-FIN-BACKWARD-UNR-BOX)
+// Based on benchmark_NL_EIG_FIN_BACKWARD_UNR_BOX configuration
+// BACKWARD DYNAMICS: dx1/dt = -((7.5*x2^2 + 5.0)*(x1^3 + x1 + sin(x2)) + (1.0*x1^2 + 1.0*x2^3 + 2.0*x2)*cos(x2))/(9*x1^2*x2^2 + 6*x1^2 - 2*x1*cos(x2) + 3*x2^2 + 2)
+//                    dx2/dt = -(-5.0*x1*(x1^3 + x1 + sin(x2)) - 1.0*(3*x1^2 + 1)*(x1^2 + x2^3 + 2*x2))/(9*x1^2*x2^2 + 6*x1^2 - 2*x1*cos(x2) + 3*x2^2 + 2)
+// Initial set (backward target): x1 ∈ [1.5, 1.6], x2 ∈ [0.1, 0.2]
+// Target set (backward initial): x1 ∈ [0, 0.1], x2 ∈ [1.1, 1.2]
+// Time horizon: [0, 1.3], Expected: unreachable
+
+[-1, 3] x1;
+[-2, 2] x2;
+
+[0, 1.3] tau;
+[0, 1.3] time;
+
+{mode 1;
+
+invt:   (x1 >= -1);
+	(x1 <= 3);
+	(x2 >= -2);
+	(x2 <= 2);
+	(tau <= 1.3);
+
+flow:
+	d/dt[x1] = -(((7.5*x2^2 + 5.0)*(x1^3 + x1 + sin(x2)) + (1.0*x1^2 + 1.0*x2^3 + 2.0*x2)*cos(x2))/(9*x1^2*x2^2 + 6*x1^2 - 2*x1*cos(x2) + 3*x2^2 + 2)); 
+	d/dt[x2] = -((-5.0*x1*(x1^3 + x1 + sin(x2)) - 1.0*(3*x1^2 + 1)*(x1^2 + x2^3 + 2*x2))/(9*x1^2*x2^2 + 6*x1^2 - 2*x1*cos(x2) + 3*x2^2 + 2)); 
+	d/dt[tau] = 1;
+
+jump: true ==> @1 true ;
+
+}
+
+init:
+@1 (and (x1 >= 1.5) (x1 <= 1.6) (x2 >= 0.1) (x2 <= 0.2) (tau = 0));
+
+goal:
+@1 (and (x1 >= 0) (x1 <= 0.1) (x2 >= 1.1) (x2 <= 1.2) (tau >= 0) (tau <= 1.3));
