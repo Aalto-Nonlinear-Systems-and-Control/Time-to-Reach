@@ -171,7 +171,6 @@ results_*/
 **/results_*/
 *.png
 *.jpg
-*.pdf
 *.eps
 *.svg
 *.mat
