@@ -1,4 +1,4 @@
-# Time-to-Reach
+# Time-to-Reach verification through Koopman Operator spectrum
 
 This repository contains a comprehensive collection of benchmarks for time-to-reach analysis in dynamical systems. The benchmarks cover various types of reachability analysis problems and are primarily used for comparing the performance and accuracy of different reachability analysis approaches.
 
