@@ -2,6 +2,22 @@
 
 This repository contains a comprehensive collection of benchmarks for time-to-reach analysis in dynamical systems. The benchmarks cover various types of reachability analysis problems and are primarily used for comparing the performance and accuracy of different reachability analysis approaches.
 
+## Table of Contents
+
+- [Time-to-Reach verification through Koopman Operator spectrum](#time-to-reach-verification-through-koopman-operator-spectrum)
+  - [Table of Contents](#table-of-contents)
+  - [Benchmark Settings Summary](#benchmark-settings-summary)
+    - [Quick Reference Table](#quick-reference-table)
+    - [Tool-Specific Settings](#tool-specific-settings)
+      - [Hamilton-Jacobi Reachability (HJ)](#hamilton-jacobi-reachability-hj)
+      - [Koopman Reach-Time Bounds (KRTB)](#koopman-reach-time-bounds-krtb)
+      - [CORA (Zonotope Reachability)](#cora-zonotope-reachability)
+      - [JuliaReach (Taylor Model Reachability)](#juliareach-taylor-model-reachability)
+      - [Sum-of-Squares Barrier Certificates (SOSBC)](#sum-of-squares-barrier-certificates-sosbc)
+      - [dReach (δ-Complete SMT Solver)](#dreach-δ-complete-smt-solver)
+    - [General Notes](#general-notes)
+  - [Documentation](#documentation)
+
 ## Benchmark Settings Summary
 
 ### Quick Reference Table
