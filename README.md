@@ -68,24 +68,24 @@ Settings for HJ reachability analysis using level set methods:
 
 Path integral-based method using Koopman operator theory:
 
-| Benchmark                        | Equilibrium Point | Initial Samples | Target Samples | Integration Time (T) | Notes               |
-| -------------------------------- | ----------------- | --------------- | -------------- | -------------------- | ------------------- |
-| CP-LQR_FIN_REA_CONVERGE          | [0,0,0,0]         | 10              | 1000           | 50                   | Origin equilibrium  |
-| CP-LQR_FIN_REA_UNSAFE            | [0,0,0,0]         | 10              | 10000          | 50                   | Large target set    |
-| CP-LQR_FIN_UNR_SAFE              | [0,0,0,0]         | 5               | 10000          | 50                   | Safety verification |
-| DUFF_FIN_REA_BALL                | [1,0]             | 1000            | 1000           | 100                  | Ball sets           |
-| DUFF_FIN_REA_BOX                 | [1,0]             | 1000            | 1000           | 100                  | Box sets            |
-| DUFF_FIN_REA_DISJOINT_BOX        | [1,0]             | 1000            | 1000           | 100                  | Multiple targets    |
-| DUFF_FIN_REA_NONCONVEX_LEVEL_SET | [1,0]             | 1000            | 1000           | 100                  | Nonconvex sets      |
-| DUFF_FIN_UNR_BALL                | [1,0]             | 1000            | 1000           | 100                  | Unreachability      |
-| DUFF_FIN_UNR_BOX                 | [1,0]             | 1000            | 1000           | 100                  | Unreachability      |
-| MAS-CON_FIN_REA_BOX              | [0,...,0] (16D)   | 100             | 1000           | 70                   | High-dimensional    |
-| MAS-CON_FIN_UNR_SAFE_0           | [0,...,0] (16D)   | 100             | 1000           | 70                   | Synchronization     |
-| MAS-CON_FIN_UNR_SAFE_1           | [0,...,0] (16D)   | 100             | 1000           | 70                   | Synchronization     |
-| NL-EIG_FIN_BACKWARD_REA_BOX      | [0,0]             | 1000            | 1000           | 100                  | Backward reach      |
-| NL-EIG_FIN_BACKWARD_UNR_BOX      | [0,0]             | 1000            | 1000           | 100                  | Backward unreach    |
-| NL-SLC_FIN_REA_BOX               | [0,0]             | 1000            | 2000           | -                    | Spiral dynamics     |
-| NL-SLC_FIN_UNR_BOX               | [0,0]             | 1000            | 2000           | -                    | Spiral dynamics     |
+| Benchmark                        | Equilibrium Point | Initial Samples | Target Samples | Integration Time (T) | Notes                                   |
+| -------------------------------- | ----------------- | --------------- | -------------- | -------------------- | --------------------------------------- |
+| CP-LQR_FIN_REA_CONVERGE          | [0,0,0,0]         | 10              | 1000           | 50                   | Origin equilibrium                      |
+| CP-LQR_FIN_REA_UNSAFE            | [0,0,0,0]         | 10              | 10000          | 50                   | Large target set                        |
+| CP-LQR_FIN_UNR_SAFE              | [0,0,0,0]         | 5               | 10000          | 50                   | Safety verification                     |
+| DUFF_FIN_REA_BALL                | [1,0]             | 1000            | 1000           | 100                  | Ball sets                               |
+| DUFF_FIN_REA_BOX                 | [1,0]             | 1000            | 1000           | 100                  | Box sets                                |
+| DUFF_FIN_REA_DISJOINT_BOX        | [1,0]             | 1000            | 1000           | 100                  | Multiple targets                        |
+| DUFF_FIN_REA_NONCONVEX_LEVEL_SET | [1,0]             | 1000            | 1000           | 100                  | Nonconvex sets                          |
+| DUFF_FIN_UNR_BALL                | [1,0]             | 1000            | 1000           | 100                  | Unreachability                          |
+| DUFF_FIN_UNR_BOX                 | [1,0]             | 1000            | 1000           | 100                  | Unreachability                          |
+| MAS-CON_FIN_REA_BOX              | [0,...,0] (16D)   | 100             | 1000           | 70                   | High-dimensional                        |
+| MAS-CON_FIN_UNR_SAFE_0           | [0,...,0] (16D)   | 100             | 1000           | 70                   | Synchronization                         |
+| MAS-CON_FIN_UNR_SAFE_1           | [0,...,0] (16D)   | 100             | 1000           | 70                   | Synchronization                         |
+| NL-EIG_FIN_BACKWARD_REA_BOX      | [0,0]             | 1000            | 1000           | N/A                  | Direct symbolic eval (no path integral) |
+| NL-EIG_FIN_BACKWARD_UNR_BOX      | [0,0]             | 1000            | 1000           | N/A                  | Direct symbolic eval (no path integral) |
+| NL-SLC_FIN_REA_BOX               | [0,0]             | 1000            | 2000           | N/A                  | Direct symbolic eval (no path integral) |
+| NL-SLC_FIN_UNR_BOX               | [0,0]             | 1000            | 2000           | N/A                  | Direct symbolic eval (no path integral) |
 
 **KRTB Path Integral Parameters:**
 
