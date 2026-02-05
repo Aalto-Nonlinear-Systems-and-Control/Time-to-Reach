@@ -180,4 +180,4 @@ For detailed information about each benchmark, including:
 - Performance results and comparisons
 - Visualization
 
-Please refer to the **`Benchmark_Specifications.pdf`** file, which provides comprehensive documentation for all benchmarks and their corresponding results.
+Please refer to the [**Benchmark_Specifications.pdf**](Benchmark_Specifications.pdf) file, which provides comprehensive documentation for all benchmarks and their corresponding results.
