@@ -2,8 +2,6 @@
 
 **Online report: <https://aalto-nonlinear-systems-and-control.github.io/Time-to-Reach/>.** The report covers every benchmark. For each one it shows the specification, the result of every tool, and the simulation baseline the results are checked against.
 
-A shorter version shows only KRTB and the simulation: <https://aalto-nonlinear-systems-and-control.github.io/Time-to-Reach/krtb.html>.
-
 This repository holds the code, the benchmarks and the results of the paper *Time-to-reach Bounds for Verification of Dynamical Systems Using the Koopman Spectrum* by Jianqiang Ding and Shankar A. Deka. The preprint is [arXiv:2411.05554](https://arxiv.org/abs/2411.05554). The repository contains:
 
 - **KRTB**, the method of the paper. It computes reach-time bounds from the principal Koopman eigenfunctions (`tools/krtb`).
@@ -31,7 +29,7 @@ The benchmarks are documented in [Benchmark_Specifications.pdf](Benchmark_Specif
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `main`                  | What is needed to reproduce the paper: the benchmarks, the tool runners, the scripts for the tables and figures, the results and the tests.                                                                                      |
 | `refactor/code-cleanup` | The development branch, with the full history. On top of `main` it has the generator of the online report (`scripts/report.py` and the scripts for its animated pipeline figure) and the original hand-written dReach models (`benchmarks/`). |
-| `gh-pages`              | The online report (`index.html`, `krtb.html`), built with `python -m scripts.report` on the development branch.                                                                                                                  |
+| `gh-pages`              | The online report (`index.html`), built with `python -m scripts.report` on the development branch.                                                                                                                               |
 
 ## Repository layout
 
