@@ -10,48 +10,18 @@ This repository holds the code, the benchmarks and the results of the paper *Tim
 - **The results** behind the paper's tables, and the simulation baseline they are checked against (`results/summary/`).
 - **The scripts** that write the paper's tables and figures (`scripts/`).
 
-The benchmarks are documented in [Benchmark_Specifications.pdf](Benchmark_Specifications.pdf). Changes since its first published version are shown in blue.
-
 ## Contents
 
-- [Branches](#branches)
-- [Repository layout](#repository-layout)
-- [Installation](#installation)
 - [Reproducing the paper](#reproducing-the-paper)
 - [Benchmarks](#benchmarks)
 - [Results](#results)
 - [Tool settings](#tool-settings)
 - [Tests](#tests)
+- [Repository layout](#repository-layout)
 
-## Branches
+## Reproducing the paper
 
-| Branch                  | Content                                                                                                                                                                                                                          |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main`                  | What is needed to reproduce the paper: the benchmarks, the tool runners, the scripts for the tables and figures, the results and the tests.                                                                                      |
-| `refactor/code-cleanup` | The development branch, with the full history. On top of `main` it has the generator of the online report (`scripts/report.py` and the scripts for its animated pipeline figure) and the original hand-written dReach models (`benchmarks/`). |
-| `gh-pages`              | The online report (`index.html`), built with `python -m scripts.report` on the development branch.                                                                                                                               |
-
-## Repository layout
-
-```text
-configs/benchmarks/     one JSON file per benchmark: dynamics, domain, initial and target sets, horizon, expected result
-configs/settings/       the parameters of every tool (one comparison setting, setting_0)
-configs/schema/         JSON schemas of the configs and of the result records
-tools/common/           shared code: loading benchmarks, sets, simulation, result records, memory and time limits
-tools/krtb/             KRTB: principal eigenfunctions (analytic or path integral) and reach-time bounds
-tools/cora/             CORA runner (MATLAB; CORA is the submodule tools/cora/CORA)
-tools/juliareach/       JuliaReach runner (Julia; pinned Project.toml and Manifest.toml)
-tools/dreach/           dReach runner and Dockerfile; the .drh models are generated from the configs
-tools/hj/               hj_reachability runner
-tools/sosbc/            SOS barrier certificates (MATLAB; SOSTOOLS is the submodule tools/sosbc/SOSTOOLS)
-scripts/                simulation baseline, evaluation, tables, figures, robustness study, cart-pole LQR design
-results/summary/        result records of every tool, the simulation baseline, the evaluation and the tables
-tests/                  pytest suite
-```
-
-Everything a run writes outside `results/summary/` goes to other folders under `results/`, such as raw tool output, figures and videos. These folders are not tracked.
-
-## Installation
+### Environment
 
 ```sh
 git clone --recurse-submodules https://github.com/Aalto-Nonlinear-Systems-and-Control/Time-to-Reach.git
@@ -69,9 +39,7 @@ KRTB, the simulation baseline, HJ and all scripts need only this environment. KR
 | JuliaReach     | Julia 1.13.1 (for example with juliaup), then `julia --project=tools/juliareach -e 'using Pkg; Pkg.instantiate()'`.                                            |
 | dReach         | Docker. Build the image with `docker build --platform linux/amd64 -t dreach:dreal3-7f31797b tools/dreach`. It is x86-64 only, so it runs under emulation on Apple Silicon. |
 
-## Reproducing the paper
-
-All commands run from the repository root in the `time_to_reach` environment.
+All commands below run from the repository root in the `time_to_reach` environment.
 
 ### Table II: comparison of the tools
 
@@ -233,3 +201,23 @@ The tests cover the following:
 - **Configs.** They check that every config loads, that its sets lie in the domain and that its expected result and direction match its name. They also check that the cart-pole configs carry exactly the model and the gain of `scripts/cartpole_lqr.py`.
 - **Tools.** They check the set handling, the simulation and the KRTB bounds, and the verdict logic of every runner.
 - **Tables and figures.** They check that the tables and figures follow from the stored results.
+
+## Repository layout
+
+```text
+configs/benchmarks/     one JSON file per benchmark: dynamics, domain, initial and target sets, horizon, expected result
+configs/settings/       the parameters of every tool (one comparison setting, setting_0)
+configs/schema/         JSON schemas of the configs and of the result records
+tools/common/           shared code: loading benchmarks, sets, simulation, result records, memory and time limits
+tools/krtb/             KRTB: principal eigenfunctions (analytic or path integral) and reach-time bounds
+tools/cora/             CORA runner (MATLAB; CORA is the submodule tools/cora/CORA)
+tools/juliareach/       JuliaReach runner (Julia; pinned Project.toml and Manifest.toml)
+tools/dreach/           dReach runner and Dockerfile; the .drh models are generated from the configs
+tools/hj/               hj_reachability runner
+tools/sosbc/            SOS barrier certificates (MATLAB; SOSTOOLS is the submodule tools/sosbc/SOSTOOLS)
+scripts/                simulation baseline, evaluation, tables, figures, robustness study, cart-pole LQR design
+results/summary/        result records of every tool, the simulation baseline, the evaluation and the tables
+tests/                  pytest suite
+```
+
+Everything a run writes outside `results/summary/` goes to other folders under `results/`, such as raw tool output, figures and videos. These folders are not tracked.
