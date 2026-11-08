@@ -1,0 +1,53 @@
+{
+  "tool": "juliareach",
+  "settings": {
+    "setting_0": {
+      "description": "ReachabilityAnalysis.jl 0.33.0 with TMJets (tools/juliareach/Project.toml) and one initial box. abstol/orderT/orderQ per benchmark family as in the original scripts (2D benchmarks: abstol 1e-12, orderT 7; CP_LQR and MAS_CON: abstol 1e-10, orderT 5); maxsteps raised from the default 2000 so that the horizon is not cut short silently. The vector field is generated from the config and @taylorize'd. Benchmarks that are not a forward problem from one initial box to one target box are reported as unsupported and their parameters are not used.",
+      "defaults": {
+        "julia": "1.13.1",
+        "abstol": 1e-12,
+        "orderT": 7,
+        "orderQ": 1,
+        "maxsteps": 20000,
+        "taylorize": true,
+        "timeout_s": 1800
+      },
+      "benchmarks": {
+        "CP_LQR_FIN_REA_CONVERGE": {
+          "abstol": 1e-10,
+          "orderT": 5
+        },
+        "CP_LQR_FIN_REA_UNSAFE": {
+          "abstol": 1e-10,
+          "orderT": 5
+        },
+        "CP_LQR_FIN_UNR_SAFE": {
+          "abstol": 1e-10,
+          "orderT": 5
+        },
+        "DUFF_FIN_REA_BALL": {},
+        "DUFF_FIN_REA_BOX": {},
+        "DUFF_FIN_REA_DISJOINT_BOX": {},
+        "DUFF_FIN_REA_NONCONVEX_LEVEL_SET": {},
+        "DUFF_FIN_UNR_BALL": {},
+        "DUFF_FIN_UNR_BOX": {},
+        "MAS_CON_FIN_REA_BOX": {
+          "abstol": 1e-10,
+          "orderT": 5
+        },
+        "MAS_CON_FIN_UNR_SAFE_0": {
+          "abstol": 1e-10,
+          "orderT": 5
+        },
+        "MAS_CON_FIN_UNR_SAFE_1": {
+          "abstol": 1e-10,
+          "orderT": 5
+        },
+        "NL_EIG_FIN_BACKWARD_REA_BOX": {},
+        "NL_EIG_FIN_BACKWARD_UNR_BOX": {},
+        "NL_SLC_FIN_REA_BOX": {},
+        "NL_SLC_FIN_UNR_BOX": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "benchmark": "CP_LQR_FIN_UNR_SAFE",
+  "tool": "hj",
+  "setting": "setting_0",
+  "verdict": "out_of_memory",
+  "expected_result": "unreachable",
+  "agrees_with_expected": null,
+  "detail": "grid of 100^4 = 1e+08 nodes: memory use reached 8.41 GB after 1.12 s, above the memory limit of 8 GB",
+  "time_horizon": [0.0, 10.0],
+  "horizon_covered": null,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 1.2044400840095477
+  },
+  "params": {
+    "grid_size": 100,
+    "accuracy": "low",
+    "time_step_report": 0.005,
+    "num_samples_initial": 2000,
+    "boundary_samples_initial": 2000,
+    "seed": 0,
+    "memory_limit_gb": 8,
+    "timeout_s": 1800
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-08T13:56:03+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "sympy": "1.14.0",
+      "jax": "0.11.2",
+      "jaxlib": "0.11.2",
+      "hj_reachability": "0.7.0"
+    }
+  },
+  "extra": {
+    "memory_limit_gb": 8,
+    "grid_nodes": 100000000.0,
+    "grid_memory_gb": 2.0,
+    "started": true,
+    "peak_memory_gb": 8.414838784
+  }
+}

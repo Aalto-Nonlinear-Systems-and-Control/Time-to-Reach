@@ -1,0 +1,134 @@
+{
+  "tool": "hj",
+  "setting": "setting_0",
+  "rows": [
+    {
+      "benchmark": "CP_LQR_FIN_REA_CONVERGE",
+      "verdict": "out_of_memory",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "no claim",
+      "runtime_s": 1.3672854579926934
+    },
+    {
+      "benchmark": "CP_LQR_FIN_REA_UNSAFE",
+      "verdict": "out_of_memory",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "no claim",
+      "runtime_s": 1.282217749991105
+    },
+    {
+      "benchmark": "CP_LQR_FIN_UNR_SAFE",
+      "verdict": "out_of_memory",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "no claim",
+      "runtime_s": 1.2044400840095477
+    },
+    {
+      "benchmark": "DUFF_FIN_REA_BALL",
+      "verdict": "reachable_estimated",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "consistent",
+      "runtime_s": 22.372320750000654
+    },
+    {
+      "benchmark": "DUFF_FIN_REA_BOX",
+      "verdict": "reachable_estimated",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "consistent",
+      "runtime_s": 20.65401458297856
+    },
+    {
+      "benchmark": "DUFF_FIN_REA_DISJOINT_BOX",
+      "verdict": "reachable_estimated",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "consistent",
+      "runtime_s": 18.481050292000873
+    },
+    {
+      "benchmark": "DUFF_FIN_REA_NONCONVEX_LEVEL_SET",
+      "verdict": "reachable_estimated",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "consistent",
+      "runtime_s": 17.37557079200633
+    },
+    {
+      "benchmark": "DUFF_FIN_UNR_BALL",
+      "verdict": "unreachable_estimated",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "consistent",
+      "runtime_s": 22.82141787497676
+    },
+    {
+      "benchmark": "DUFF_FIN_UNR_BOX",
+      "verdict": "unreachable_estimated",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "consistent",
+      "runtime_s": 65.87779012499959
+    },
+    {
+      "benchmark": "MAS_CON_FIN_REA_BOX",
+      "verdict": "out_of_memory",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "no claim",
+      "runtime_s": 0.10583079198841006
+    },
+    {
+      "benchmark": "MAS_CON_FIN_UNR_SAFE_0",
+      "verdict": "out_of_memory",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "no claim",
+      "runtime_s": 0.056381958012934774
+    },
+    {
+      "benchmark": "MAS_CON_FIN_UNR_SAFE_1",
+      "verdict": "out_of_memory",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "no claim",
+      "runtime_s": 0.05528891700669192
+    },
+    {
+      "benchmark": "NL_EIG_FIN_BACKWARD_REA_BOX",
+      "verdict": "reachable_estimated",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "consistent",
+      "runtime_s": 7.853710625000531
+    },
+    {
+      "benchmark": "NL_EIG_FIN_BACKWARD_UNR_BOX",
+      "verdict": "unreachable_estimated",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "consistent",
+      "runtime_s": 8.773509166989243
+    },
+    {
+      "benchmark": "NL_SLC_FIN_REA_BOX",
+      "verdict": "reachable_estimated",
+      "expected_result": "reachable",
+      "simulation": "reachable_witness",
+      "verdict_check": "consistent",
+      "runtime_s": 269.87655300000915
+    },
+    {
+      "benchmark": "NL_SLC_FIN_UNR_BOX",
+      "verdict": "unreachable_estimated",
+      "expected_result": "unreachable",
+      "simulation": "unreachable_estimated",
+      "verdict_check": "consistent",
+      "runtime_s": 268.08376400001
+    }
+  ]
+}

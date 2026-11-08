@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "benchmark": "CP_LQR_FIN_REA_UNSAFE",
+  "tool": "dreach",
+  "setting": "setting_0",
+  "verdict": "reachable_possible",
+  "expected_result": "reachable",
+  "agrees_with_expected": null,
+  "detail": "delta-sat with delta = 0.001",
+  "time_horizon": [0.0, 10.0],
+  "horizon_covered": true,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 3.226795124995988,
+    "dreach": 2.95,
+    "container_overhead": 0.2767951249959877
+  },
+  "params": {
+    "image": "dreach:dreal3-7f31797b",
+    "k": 0,
+    "precision": 0.001,
+    "timeout_s": 1800,
+    "image_id": "sha256:9b773a5a2ffda8cce6ca9c90f7dca9bfc26b220dabb14c00879ec5cd65226ea9",
+    "host_machine": "arm64",
+    "emulated": true
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-08T13:55:58+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6"
+    }
+  },
+  "extra": {
+    "model": "/Users/jianqiang/Documents/Overleaf_Github_Sync/Time-to-Reach/results/raw/dreach/CP_LQR_FIN_REA_UNSAFE/setting_0/CP_LQR_FIN_REA_UNSAFE.drh",
+    "stdout_tail": [
+      "dReal Options: --precision 0.001",
+      "SMT: CP_LQR_FIN_REA_UNSAFE_0_0.smt2, PATH : [1]",
+      "For k = 0, [1] -- SAT"
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "benchmark": "MAS_CON_FIN_REA_BOX",
+  "tool": "hj",
+  "setting": "setting_0",
+  "verdict": "out_of_memory",
+  "expected_result": "reachable",
+  "agrees_with_expected": null,
+  "detail": "the grid of 100^16 = 1e+32 nodes needs 6.8e+24 GB for its node coordinates and one value array, above the memory limit of 8 GB (not started)",
+  "time_horizon": [0.0, 7.0],
+  "horizon_covered": null,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 0.10583079198841006
+  },
+  "params": {
+    "grid_size": 100,
+    "accuracy": "low",
+    "time_step_report": 0.005,
+    "num_samples_initial": 2000,
+    "boundary_samples_initial": 2000,
+    "seed": 0,
+    "memory_limit_gb": 8,
+    "timeout_s": 1800
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T17:21:55+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "sympy": "1.14.0",
+      "jax": "0.11.2",
+      "jaxlib": "0.11.2",
+      "hj_reachability": "0.7.0"
+    }
+  },
+  "extra": {
+    "memory_limit_gb": 8,
+    "grid_nodes": 1e+32,
+    "grid_memory_gb": 6.8e+24,
+    "started": false
+  }
+}

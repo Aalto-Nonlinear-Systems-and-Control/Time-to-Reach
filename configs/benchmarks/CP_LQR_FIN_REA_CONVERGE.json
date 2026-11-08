@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema/benchmark.schema.json",
+  "id": "CP_LQR_FIN_REA_CONVERGE",
+  "description": "Cart-pole with LQR feedback (4D), finite horizon: the state converges into a small box around the hanging equilibrium.",
+  "notes": ["The initial set is a single state (degenerate box).", "State x = (p, v, theta, omega): cart position and velocity, pole angle (counter-clockwise, zero hanging down, positive with the pole mass towards positive p) and angular velocity; Tedrake's cart-pole as printed. u = -K x is the LQR state feedback (gains k1..k4) designed by scripts/cartpole_lqr.py with Q = diag(56.5349, 27.434, 1.8689, 77.9197), R = 6.6884."],
+  "system": {
+    "type": "nonlinear",
+    "parameters": {
+      "m_c": 2,
+      "m_p": 1,
+      "l": 1,
+      "g": 9.8065,
+      "k1": 2.9073491819170854,
+      "k2": 4.8766125237084195,
+      "k3": -3.7702193291216224,
+      "k4": -1.6396731121173271
+    },
+    "definitions": {
+      "u": "-(k1*x1 + k2*x2 + k3*x3 + k4*x4)"
+    },
+    "equations": ["x2", "(u + m_p*sin(x3)*(l*x4^2 + g*cos(x3)))/(m_c + m_p*sin(x3)^2)", "x4", "(-u*cos(x3) - m_p*l*x4^2*cos(x3)*sin(x3) - (m_c + m_p)*g*sin(x3))/(l*(m_c + m_p*sin(x3)^2))"]
+  },
+  "domain": [
+    [-5.0, 5.0],
+    [-5.0, 5.0],
+    [-3.14159, 3.14159],
+    [-10.0, 10.0]
+  ],
+  "initial_sets": [
+    {
+      "type": "box",
+      "bounds": [
+        [0.8, 0.8],
+        [0.3, 0.3],
+        [-0.7853981633974483, -0.7853981633974483],
+        [0.2, 0.2]
+      ]
+    }
+  ],
+  "target_sets": [
+    {
+      "type": "box",
+      "bounds": [
+        [-0.001, 0.001],
+        [-0.001, 0.001],
+        [-0.001, 0.001],
+        [-0.001, 0.001]
+      ]
+    }
+  ],
+  "time_horizon": [0.0, 12.0],
+  "expected_result": "reachable",
+  "visualization": {
+    "dims": [
+      [0, 1],
+      [2, 3]
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "result.schema.json",
+  "title": "Result of one tool run on one benchmark",
+  "description": "Written by every tool runner (Python, MATLAB, Julia, dReach wrapper) so that results can be aggregated into one comparison table. Infinite values are encoded as the strings \"inf\" / \"-inf\".",
+  "type": "object",
+  "required": ["schema_version", "benchmark", "tool", "setting", "verdict", "expected_result", "runtime_s", "params", "provenance"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "benchmark": {"type": "string"},
+    "tool": {"enum": ["ground_truth", "krtb", "hj", "cora", "juliareach", "sosbc", "dreach"]},
+    "setting": {"type": "string"},
+    "verdict": {
+      "description": "unreachable_proven: sound proof that no trajectory reaches the target within the horizon. reachable_proven: sound proof that some trajectory does. reachable_witness: a numerically simulated trajectory reaches the target (numerical evidence, not a formal proof). reachable_possible: a sound over-approximation intersects the target (or delta-sat), so reachability cannot be excluded. reachable_estimated / unreachable_estimated: answer of an approximate method (sampling, grids) without a guarantee. unknown: the method completed but cannot decide. unsupported: the benchmark is outside the tool's problem class. set_explosion: the over-approximation diverged before covering the horizon. out_of_memory: the method needs more memory than the limit of the run. timeout / error: the run did not complete.",
+      "enum": [
+        "unreachable_proven",
+        "reachable_proven",
+        "reachable_witness",
+        "reachable_possible",
+        "reachable_estimated",
+        "unreachable_estimated",
+        "unknown",
+        "unsupported",
+        "set_explosion",
+        "out_of_memory",
+        "timeout",
+        "error"
+      ]
+    },
+    "expected_result": {"enum": ["reachable", "unreachable"]},
+    "agrees_with_expected": {
+      "description": "true/false when the verdict asserts reachable or unreachable, null otherwise.",
+      "type": ["boolean", "null"]
+    },
+    "detail": {"type": "string"},
+    "time_horizon": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+    "horizon_covered": {"type": ["boolean", "null"]},
+    "reach_time_bounds": {
+      "description": "Union of intervals that contain the times at which a trajectory can be in the target set.",
+      "type": ["array", "null"],
+      "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": ["number", "string"]}}
+    },
+    "runtime_s": {
+      "description": "Wall-clock seconds; 'total' is required, other phases (setup, compile, solve, check, ...) are optional.",
+      "type": "object",
+      "required": ["total"],
+      "additionalProperties": {"type": ["number", "null"]}
+    },
+    "params": {"type": "object"},
+    "provenance": {
+      "type": "object",
+      "required": ["git_commit", "timestamp", "platform"],
+      "properties": {
+        "git_commit": {"type": ["string", "null"]},
+        "git_dirty": {"type": ["boolean", "null"]},
+        "timestamp": {"type": "string"},
+        "platform": {"type": "string"},
+        "machine": {"type": "string"},
+        "versions": {"type": "object"}
+      }
+    },
+    "extra": {"type": "object"}
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tool": "sosbc",
+  "settings": {
+    "setting_0": {
+      "description": "SOSTOOLS v4.03 (submodule tools/sosbc/SOSTOOLS) with MOSEK; barrier degree 16 for every benchmark (the original scripts used 8, and 14 for DUFF_FIN_UNR_BOX; at degree 8 and 12 no certificate exists for DUFF_FIN_UNR_BOX, and DUFF_FIN_UNR_BALL needs 12); multipliers sized so that every product reaches the barrier degree (quadratic box constraints); B >= 1 on the boundary of the domain so the certificate holds for all time. Benchmarks with non-polynomial dynamics or sets are reported as unsupported.",
+      "defaults": {
+        "matlab_release": "R2025a",
+        "deg_B": 16,
+        "boundary_condition": true,
+        "timeout_s": 1800
+      },
+      "benchmarks": {
+        "CP_LQR_FIN_REA_CONVERGE": {},
+        "CP_LQR_FIN_REA_UNSAFE": {},
+        "CP_LQR_FIN_UNR_SAFE": {},
+        "DUFF_FIN_REA_BALL": {},
+        "DUFF_FIN_REA_BOX": {},
+        "DUFF_FIN_REA_DISJOINT_BOX": {},
+        "DUFF_FIN_REA_NONCONVEX_LEVEL_SET": {},
+        "DUFF_FIN_UNR_BALL": {},
+        "DUFF_FIN_UNR_BOX": {},
+        "MAS_CON_FIN_REA_BOX": {},
+        "MAS_CON_FIN_UNR_SAFE_0": {},
+        "MAS_CON_FIN_UNR_SAFE_1": {},
+        "NL_EIG_FIN_BACKWARD_REA_BOX": {},
+        "NL_EIG_FIN_BACKWARD_UNR_BOX": {},
+        "NL_SLC_FIN_REA_BOX": {},
+        "NL_SLC_FIN_UNR_BOX": {}
+      }
+    }
+  }
+}

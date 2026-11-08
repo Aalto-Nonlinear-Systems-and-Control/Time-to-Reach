@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "benchmark": "CP_LQR_FIN_REA_UNSAFE",
+  "tool": "ground_truth",
+  "setting": "simulation",
+  "verdict": "reachable_witness",
+  "expected_result": "reachable",
+  "agrees_with_expected": true,
+  "detail": "1/1 sampled trajectories reach the target",
+  "time_horizon": [0.0, 10.0],
+  "horizon_covered": true,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 0.036214375009876676
+  },
+  "params": {
+    "direction": "forward",
+    "integrator": "DOP853",
+    "rtol": 1e-09,
+    "atol": 1e-11,
+    "event_detection": true
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-08T13:56:04+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0"
+    }
+  },
+  "extra": {
+    "samples": {
+      "interior": 1000,
+      "boundary": 1000,
+      "unique_initial_points": 1,
+      "seed": 0
+    },
+    "num_hitting": 1,
+    "num_trajectories": 1,
+    "closest_approach": {
+      "value": 0.0,
+      "kind": "function_value",
+      "x0": [0.8, 0.3, -0.7853981633974483, 0.2],
+      "time": 0.8292065727144532
+    },
+    "max_domain_violation": 0.0,
+    "problems": [],
+    "info": ["target set 1 (level_set): the sublevel set reaches its bounding box (the box cuts the set)"],
+    "witness": {
+      "x0": [0.8, 0.3, -0.7853981633974483, 0.2],
+      "first_hit_time": 0.8292065727144532
+    },
+    "first_hit_time_range": [0.8292065727144532, 0.8292065727144532],
+    "in_target_times": [
+      [0.8292065727144532, 1.1425420189448672]
+    ]
+  }
+}

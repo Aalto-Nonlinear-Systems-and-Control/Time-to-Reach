@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "benchmark.schema.json",
+  "title": "Time-to-reach benchmark",
+  "description": "Single source of truth for one benchmark. Semantics: with s = +1 for direction 'forward' (default) and s = -1 for 'backward', the benchmark is 'reachable' iff there exist x0 in the union of initial_sets and t in [time_horizon[0], time_horizon[1]] such that the solution x(t) of dx/dt = s*f(x), x(0) = x0, lies in the union of target_sets. A backward problem therefore follows the time-reversed flow of f from initial_sets. State variables are named x1..xn.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "description", "system", "domain", "initial_sets", "target_sets", "time_horizon", "expected_result"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {
+      "description": "Benchmark identifier; equals the file name without .json.",
+      "type": "string",
+      "pattern": "^[A-Z0-9]+(_[A-Z0-9]+)*$"
+    },
+    "description": {"type": "string", "minLength": 1},
+    "notes": {
+      "description": "Free-form remarks that matter for interpreting results.",
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "system": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "equations"],
+          "properties": {
+            "type": {"const": "nonlinear"},
+            "equations": {
+              "description": "Right-hand side f_i(x1..xn) for i = 1..n; '^' and '**' both denote powers. May use the names in 'parameters' and 'definitions'.",
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "parameters": {
+              "description": "Named constants (e.g. masses, feedback gains), substituted into 'definitions' and 'equations'.",
+              "type": "object",
+              "propertyNames": {"pattern": "^[A-Za-z][A-Za-z0-9_]*$"},
+              "additionalProperties": {"type": "number"}
+            },
+            "definitions": {
+              "description": "Named sub-expressions (e.g. a control law u), in order: each may use the states, the parameters and earlier definitions.",
+              "type": "object",
+              "propertyNames": {"pattern": "^[A-Za-z][A-Za-z0-9_]*$"},
+              "additionalProperties": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "A"],
+          "properties": {
+            "type": {"const": "linear"},
+            "A": {"$ref": "#/$defs/matrix"}
+          }
+        }
+      ]
+    },
+    "direction": {
+      "description": "'forward': trajectories of dx/dt = f(x). 'backward': trajectories of the time-reversed system dx/dt = -f(x), i.e. backward reachability from initial_sets. 'system' always states the forward vector field f.",
+      "enum": ["forward", "backward"],
+      "default": "forward"
+    },
+    "domain": {
+      "description": "Axis-aligned box that contains every initial set, every target set and all trajectories from the initial sets over the time horizon. Grid- and region-based tools use it as their computational domain.",
+      "$ref": "#/$defs/bounds"
+    },
+    "initial_sets": {
+      "description": "Union of these sets.",
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/set"}
+    },
+    "target_sets": {
+      "description": "Union of these sets.",
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/set"}
+    },
+    "time_horizon": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "expected_result": {"enum": ["reachable", "unreachable"]},
+    "visualization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dims": {
+          "description": "Pairs of 0-based state indices to plot.",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0},
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "interval": {
+      "type": "array",
+      "items": {"type": "number"},
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "bounds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/interval"}
+    },
+    "matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "array", "minItems": 1, "items": {"type": "number"}}
+    },
+    "set": {
+      "oneOf": [
+        {
+          "description": "Axis-aligned box; lower == upper is allowed (degenerate dimension).",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "bounds"],
+          "properties": {
+            "type": {"const": "box"},
+            "bounds": {"$ref": "#/$defs/bounds"}
+          }
+        },
+        {
+          "description": "Closed Euclidean ball {x : |x - center| <= radius}.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "center", "radius"],
+          "properties": {
+            "type": {"const": "ball"},
+            "center": {"type": "array", "minItems": 1, "items": {"type": "number"}},
+            "radius": {"type": "number", "exclusiveMinimum": 0}
+          }
+        },
+        {
+          "description": "{x in bounding_box : function(x) <= 0}. The bounding box must enclose the sublevel set's relevant component; tools that cannot handle level sets may use the box as an outer approximation.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "function", "bounding_box"],
+          "properties": {
+            "type": {"const": "level_set"},
+            "function": {"type": "string", "minLength": 1},
+            "bounding_box": {"$ref": "#/$defs/bounds"}
+          }
+        }
+      ]
+    }
+  }
+}

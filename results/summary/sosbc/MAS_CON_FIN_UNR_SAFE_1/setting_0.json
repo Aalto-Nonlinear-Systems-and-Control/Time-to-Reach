@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "benchmark": "MAS_CON_FIN_UNR_SAFE_1",
+  "tool": "sosbc",
+  "setting": "setting_0",
+  "verdict": "unsupported",
+  "expected_result": "unreachable",
+  "agrees_with_expected": null,
+  "detail": "non-polynomial dynamics (trigonometric, exponential or rational terms); SOS programming needs polynomial dynamics",
+  "time_horizon": [0.0, 7.0],
+  "horizon_covered": null,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 0.07478404199355282
+  },
+  "params": {
+    "matlab_release": "R2025a",
+    "deg_B": 16,
+    "boundary_condition": true,
+    "timeout_s": 1800
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T16:38:22+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "sympy": "1.14.0"
+    }
+  },
+  "extra": {}
+}

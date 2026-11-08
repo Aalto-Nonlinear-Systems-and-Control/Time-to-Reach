@@ -1,0 +1,25 @@
+// Self-test (unreachable): x' = -x from x(0) in [0.8, 1]; x stays positive, so dReach must answer unsat.
+[-2, 2] x1;
+[0, 1] tau;
+[0, 1] time;
+
+{mode 1;
+
+invt:
+	(x1 >= -2);
+	(x1 <= 2);
+	(tau <= 1);
+
+flow:
+	d/dt[x1] = -(x1);
+	d/dt[tau] = 1;
+
+jump:
+
+}
+
+init:
+@1 (and (and (x1 >= 0.8) (x1 <= 1)) (tau = 0));
+
+goal:
+@1 (and (and (x1 >= -2) (x1 <= -0.2)) (tau >= 0) (tau <= 1));

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "benchmark": "DUFF_FIN_REA_BALL",
+  "tool": "juliareach",
+  "setting": "setting_0",
+  "verdict": "unsupported",
+  "expected_result": "reachable",
+  "agrees_with_expected": null,
+  "detail": "outside the box-to-box setting of the runner: the initial or the target set is a ball or a level set",
+  "time_horizon": [0.0, 6.0],
+  "horizon_covered": null,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 0.006352833996061236
+  },
+  "params": {
+    "julia": "1.13.1",
+    "abstol": 1e-12,
+    "orderT": 7,
+    "orderQ": 1,
+    "maxsteps": 20000,
+    "taylorize": true,
+    "timeout_s": 1800
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T17:10:33+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15"
+    }
+  },
+  "extra": {}
+}

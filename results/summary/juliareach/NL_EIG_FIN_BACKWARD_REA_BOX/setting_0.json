@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "benchmark": "NL_EIG_FIN_BACKWARD_REA_BOX",
+  "tool": "juliareach",
+  "setting": "setting_0",
+  "verdict": "unsupported",
+  "expected_result": "reachable",
+  "agrees_with_expected": null,
+  "detail": "outside the box-to-box setting of the runner: the benchmark is a backward reachability problem",
+  "time_horizon": [0.0, 1.3],
+  "horizon_covered": null,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 0.010584875009953976
+  },
+  "params": {
+    "julia": "1.13.1",
+    "abstol": 1e-12,
+    "orderT": 7,
+    "orderQ": 1,
+    "maxsteps": 20000,
+    "taylorize": true,
+    "timeout_s": 1800
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T17:18:54+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15"
+    }
+  },
+  "extra": {}
+}
