@@ -237,10 +237,13 @@ def reachable_points(bm, horizon, n_samples, rng, n_points):
     return np.concatenate(T), np.vstack(X), len(X0)
 
 
-def figure_duffing(bid, n_samples, rng):
+def figure_duffing(bid, n_samples, rng, xlim=(-1.0, 2.1), ylim=(-1.0, 2.05), t_end=None):
+    """The reachable set of a 2D benchmark within its KRTB reach-time bounds (orange) and outside them (grey),
+    with a trajectory through the middle of the initial set, up to t_end (default: the end of the last bound
+    rounded up to 0.01 s). Fig. 2 uses the defaults."""
     bm = load_benchmark(bid)
     intervals, _ = bounds_of(bid)
-    t_end = ceil2(max(hi for _, hi in intervals))
+    t_end = ceil2(max(hi for _, hi in intervals)) if t_end is None else float(t_end)
     horizon = (0.0, t_end)
     T, X, n0 = reachable_points(bm, horizon, n_samples, rng, n_points=int(300 * t_end))
     within = np.zeros(len(T), dtype=bool)
@@ -250,7 +253,6 @@ def figure_duffing(bid, n_samples, rng):
     t_w, X_w, _ = simulate(bm.problem_system, x0, horizon, n_points=int(300 * t_end))
 
     fig, ax = phase_figure()
-    xlim, ylim = (-1.0, 2.1), (-1.0, 2.05)
     finish_phase_axes(ax, xlim, ylim)  # first: the text placement below measures texts in data units
     draw_streamlines(ax, bm.problem_system.rhs, xlim, ylim)
     ax.scatter(X[~within, 0], X[~within, 1], s=1.5, color=STYLE["reach"], lw=0, zorder=2, rasterized=True)
