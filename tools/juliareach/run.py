@@ -5,8 +5,8 @@
 
 Calls tools/juliareach/run.jl in the pinned Julia project (Project.toml and
 Manifest.toml next to it) and records the result. JuliaReach is run on what it
-handles itself: a forward problem from one initial box to one target box
-(tools.common.support); every other benchmark is unsupported. Verdicts:
+handles itself: a forward problem from one initial box to one target box or box
+shell (tools.common.support); every other benchmark is unsupported. Verdicts:
   some flowpipe segment lies inside the target   -> reachable_proven
   horizon covered, every segment disjoint        -> unreachable_proven
   horizon covered, some segment may intersect    -> reachable_possible (no proof:

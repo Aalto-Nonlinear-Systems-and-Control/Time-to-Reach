@@ -52,6 +52,11 @@ def set_formula(spec):
         return f"({terms} <= {num(r2)})"
     if kind == "level_set":
         return _and([f"({expr(spec['function'])} <= 0)"] + _bound_atoms(spec["bounding_box"]))
+    if kind == "box_shell":  # in the outer box, and some coordinate at least inner_radius from the centre
+        c, r, R = spec["center"], spec["inner_radius"], spec["outer_radius"]
+        outer = _bound_atoms([[ci - R, ci + R] for ci in c])
+        away = [f"(x{i} >= {num(ci + r)}) (x{i} <= {num(ci - r)})" for i, ci in enumerate(c, start=1)]
+        return _and(outer + ["(or " + " ".join(away) + ")"])
     raise ValueError(f"unknown set type {kind!r}")
 
 

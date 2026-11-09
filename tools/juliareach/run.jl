@@ -3,12 +3,15 @@
 #   julia --project=tools/juliareach tools/juliareach/run.jl <config.json> <settings.json> <out.json>
 #
 # Called by tools/juliareach/run.py, which turns the output into a result record.
-# The benchmark is a forward problem from one initial box to one target box;
-# run.py reports every other benchmark as unsupported. The vector field is
-# generated from the config's equation strings. Every flowpipe segment is
-# enclosed in a box and compared with the target box:
-#   disjoint  the segment's states are certainly outside the target
-#   inside    the segment's states are certainly inside the target
+# The benchmark is a forward problem from one initial box to one target box or
+# box shell (a box without the open box of half-width inner_radius around its
+# centre); run.py reports every other benchmark as unsupported. The vector field
+# is generated from the config's equation strings. Every flowpipe segment is
+# enclosed in a box and compared with the target (LazySets' isdisjoint, issubset):
+#   disjoint  the segment's states are certainly outside the target (the box
+#             does not meet the target's outer box)
+#   inside    the segment's states are certainly inside the target (the box lies
+#             in the outer box and, for a shell, does not meet the inner box)
 #   possible  otherwise
 # A segment inside the target proves that the target is reached (the segments
 # are over-approximations, so every trajectory is then in the target); no
@@ -45,10 +48,24 @@ function only_box(sets)
     return Hyperrectangle(low=Float64[b[1] for b in sets[1].bounds], high=Float64[b[2] for b in sets[1].bounds])
 end
 
+# the target: its outer box, and the inner box of a box shell (nothing for a box)
+function target_boxes(sets)
+    length(sets) == 1 || error("one target set is expected")
+    s = sets[1]
+    s.type == "box" && return only_box(sets), nothing
+    s.type == "box_shell" || error("a box or a box shell is expected")
+    c = Float64.(collect(s.center))
+    return Hyperrectangle(c, fill(Float64(s.outer_radius), length(c))),
+           Hyperrectangle(c, fill(Float64(s.inner_radius), length(c)))
+end
+
+# a segment box inside the target: in the outer box and clear of a shell's (closed) inner box
+inside_target(B, target, hole) = issubset(B, target) && (hole === nothing || isdisjoint(B, hole))
+
 # --- analysis ---------------------------------------------------------------
 const t0, t1 = Float64(cfg.time_horizon[1]), Float64(cfg.time_horizon[2])
 const X0 = only_box(cfg.initial_sets)
-const target = only_box(cfg.target_sets)
+const target, hole = target_boxes(cfg.target_sets)
 const alg = TMJets(abstol=st.abstol, orderT=st.orderT, orderQ=st.orderQ, maxsteps=st.maxsteps)
 
 function solve_from(X0, T)
@@ -82,7 +99,7 @@ check_time = @elapsed for R in sol
         covered = false
         break
     end
-    status = isdisjoint(B, target) ? 0 : (issubset(B, target) ? 2 : 1)
+    status = isdisjoint(B, target) ? 0 : (inside_target(B, target, hole) ? 2 : 1)
     push!(flowpipe, [a; b; low(B); high(B); Float64(status)])
     num_possible += status == 1
     num_inside += status == 2

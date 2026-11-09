@@ -39,7 +39,7 @@ The script
   3. simulates the closed loop from the initial state of the example and reports what the
      example relies on: whether the pole tip p + l sin(theta) passes the walls, whether the
      states at a collision lie in the bounding box of the unsafe benchmark's target, and when
-     the state converges into the target shell 1e-4 <= ||x||_inf <= 1e-2;
+     the state converges into the target shell 1e-30 <= ||x||_inf <= 1e-3 of CP_LQR_FIN_REA_CONVERGE;
   4. draws the time series (PNG) and renders a video of the motion (MP4, needs ffmpeg): the
      cart runs on an overhead rail, the walls stand on the floor up to the height of the mass.
 
@@ -83,7 +83,11 @@ EQUATIONS = [  # Tedrake's cart-pole as printed (theta counter-clockwise, zero h
 X0 = np.array([0.8, 0.3, -np.pi / 4, 0.2])  # the initial state of Example 2
 WALLS = {"X_U^1": 1.3, "X_U^2": 3.7}  # walls: the pole tip p + l sin(theta) beyond a wall (on its side) is unsafe
 WALL_BENCHMARKS = {"CP_LQR_FIN_REA_UNSAFE": "X_U^1", "CP_LQR_FIN_UNR_SAFE": "X_U^2"}  # the wall of each unsafe benchmark
-SHELL = (1e-4, 1e-2)  # the target: 1e-4 <= ||x||_inf <= 1e-2
+SHELL = (1e-30, 1e-3)  # the target of CP_LQR_FIN_REA_CONVERGE: 1e-30 <= ||x||_inf <= 1e-3 (a box shell)
+SHELL_NOTE = (f"The target is a box shell around the equilibrium (the origin): the box of half-width {SHELL[1]:g} "
+              f"without the open box of half-width {SHELL[0]:g}. The equilibrium itself is excluded, as the "
+              "time-to-reach bounds assume (x_e not in X_F); the hole is far smaller than the sample spacing, so the "
+              "target's samples are those of the box.")
 BOX = np.array([[-0.06, 4.0], [-0.88, 0.7], [-0.83, 0.66], [-1.72, 2.82]], float)  # bounding box of the unsafe targets (in the basin)
 T_END = 12.0
 BENCHMARKS = ("CP_LQR_FIN_REA_CONVERGE", "CP_LQR_FIN_REA_UNSAFE", "CP_LQR_FIN_UNR_SAFE")
@@ -304,7 +308,9 @@ def figure(path, t, X, u, K, eig, m, walls=WALLS):
     axes[1].legend(loc="center right", fontsize=10)
     ninf = np.abs(X).max(axis=1)
     axes[2].semilogy(t, ninf, color="black", lw=1.6, label=r"$\|x\|_\infty$")
-    axes[2].axhspan(SHELL[0], SHELL[1], color="#3457d5", alpha=0.15, lw=0, label="target shell")
+    lo, hi = axes[2].get_ylim()  # the band from the bottom of the plot: its inner radius lies far below
+    axes[2].axhspan(max(SHELL[0], lo), SHELL[1], color="#3457d5", alpha=0.15, lw=0, label="target shell")
+    axes[2].set_ylim(lo, hi)
     axes[2].set_ylabel("norm")
     axes[2].legend(loc="upper right", fontsize=10)
     axes[3].plot(t, u, color="tab:green", lw=1.6)
@@ -483,8 +489,9 @@ def write_configs(K):
         cfg["initial_sets"] = [{"type": "box", "bounds": [[float(x)] * 2 for x in X0]}]  # theta0 = -pi/4 in full precision
         notes = ["The initial set is a single state (degenerate box).", model_note]
         if bid not in WALL_BENCHMARKS:
-            cfg["description"] = ("Cart-pole with LQR feedback (4D), finite horizon: the state converges into a small box "
+            cfg["description"] = ("Cart-pole with LQR feedback (4D), finite horizon: the state converges into a box shell "
                                   "around the hanging equilibrium.")
+            notes.append(SHELL_NOTE)
         if bid in WALL_BENCHMARKS:
             wall = WALLS[WALL_BENCHMARKS[bid]]
             (target,) = cfg["target_sets"]

@@ -5,7 +5,7 @@
 
 Calls tools/cora/run_cora.m through `matlab -batch` and records the result.
 CORA is run on what it handles itself: a forward problem from one initial box to
-one target box (tools.common.support); every other benchmark is unsupported.
+one target box or box shell (tools.common.support); every other benchmark is unsupported.
 Verdicts as for JuliaReach:
   some reachable set lies inside the target     -> reachable_proven
   horizon covered, every set disjoint           -> unreachable_proven

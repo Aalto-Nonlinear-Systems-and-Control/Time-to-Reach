@@ -61,6 +61,11 @@ def implicit_function(specs, n):
         elif spec["type"] == "ball":
             c, r = jnp.asarray(spec["center"], dtype=jnp.float32), spec["radius"]
             parts.append(lambda x, c=c, r=r: jnp.linalg.norm(x - c) - r)
+        elif spec["type"] == "box_shell":  # outside the hole: max(box, inner_radius - |x - c|_inf)
+            c = jnp.asarray(spec["center"], dtype=jnp.float32)
+            box, r = _box([[ci - spec["outer_radius"], ci + spec["outer_radius"]] for ci in spec["center"]]), \
+                spec["inner_radius"]
+            parts.append(lambda x, c=c, box=box, r=r: jnp.maximum(box(x), r - jnp.max(jnp.abs(x - c))))
         elif spec["type"] == "level_set":
             f = sp.lambdify(expr.state_symbols(n), expr.parse(spec["function"], n), modules="jax")
             box = _box(spec["bounding_box"])

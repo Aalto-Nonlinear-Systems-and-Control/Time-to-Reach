@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from tools.common.sets import Ball, Box, LevelSet, Union, make_set, make_union
+from tools.common.sets import Ball, Box, BoxShell, LevelSet, Union, make_set, make_union
 
 
 def rng():
@@ -86,3 +86,33 @@ def test_vertex_samples_of_a_union_cover_its_members():
     X = u.vertex_sample(20, rng())
     assert len(X) == 20 and np.all(u.contains(X)) and np.any(X[:, 0] < 0.8) and np.any(X[:, 0] > 0.9)
 
+
+
+def test_box_shell_excludes_its_hole():
+    s = make_set({"type": "box_shell", "center": [1, 0], "inner_radius": 0.1, "outer_radius": 0.5}, 2)
+    assert isinstance(s, BoxShell) and s.dim == 2
+    X = np.array([[1.0, 0.0], [1.05, 0.0], [1.1, 0.0], [1.3, 0.4], [1.5, 0.0], [1.6, 0.0]])
+    assert s.contains(X).tolist() == [False, False, True, True, True, False]
+    g = s.inside_function(X)
+    assert g[0] == pytest.approx(0.1) and g[1] == pytest.approx(0.05)  # in the hole: distance to the inner faces
+    assert g[3] == pytest.approx(-0.1) and g[5] == pytest.approx(0.1)  # nearest face; outside: Euclidean distance
+    np.testing.assert_array_equal(s.bounding_box(), [[0.5, 1.5], [-0.5, 0.5]])
+    with pytest.raises(ValueError):
+        BoxShell([0, 0], 0.5, 0.1)
+
+
+def test_box_shell_samples_avoid_the_hole():
+    s = BoxShell([0, 0], 0.4, 0.5)
+    X = s.sample(500, np.random.default_rng(0))
+    assert len(X) == 500 and s.contains(X).all()
+    assert s.contains(s.boundary_sample(100, np.random.default_rng(1))).all()
+    assert np.all(np.isin(s.vertex_sample(20, np.random.default_rng(2)), (-0.5, 0.5)))
+
+
+def test_a_box_shell_with_a_tiny_hole_samples_like_its_box():
+    # the hole of the benchmark targets is far smaller than the sample spacing: the same samples as the box
+    shell, box = BoxShell(np.zeros(4), 1e-30, 1e-3), Box([[-1e-3, 1e-3]] * 4)
+    for method in ("sample", "boundary_sample", "vertex_sample"):
+        a = getattr(shell, method)(1000, np.random.default_rng(3))
+        b = getattr(box, method)(1000, np.random.default_rng(3))
+        np.testing.assert_array_equal(a, b)

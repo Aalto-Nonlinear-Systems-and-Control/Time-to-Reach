@@ -52,6 +52,8 @@ def set_spec(spec, n):
     """A set for the SOS program: a box, a ball or a polynomial level set."""
     if spec["type"] in ("box", "ball"):
         return {"kind": spec["type"], **{k: v for k, v in spec.items() if k != "type"}}
+    if spec["type"] == "box_shell":
+        raise Unsupported("box-shell set; the SOS program takes boxes, balls and polynomial level sets")
     f = expr.parse(spec["function"], n)
     if not f.is_polynomial(*expr.state_symbols(n)):
         raise Unsupported("non-polynomial level set; SOS programming needs polynomial sets")

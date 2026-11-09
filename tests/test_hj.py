@@ -8,7 +8,7 @@ from tools.hj.run import analyze
 
 
 @pytest.mark.parametrize("bid", ["DUFF_FIN_REA_DISJOINT_BOX", "DUFF_FIN_REA_BALL", "DUFF_FIN_REA_BOX",
-                                 "DUFF_FIN_REA_NONCONVEX_LEVEL_SET", "CP_LQR_FIN_REA_UNSAFE"])
+                                 "DUFF_FIN_REA_NONCONVEX_LEVEL_SET", "CP_LQR_FIN_REA_UNSAFE", "CP_LQR_FIN_REA_CONVERGE"])
 def test_implicit_functions_match_common_sets(bid):
     bm = load_benchmark(bid)
     g = implicit_function(bm.raw["target_sets"], bm.dim)

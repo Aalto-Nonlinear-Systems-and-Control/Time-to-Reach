@@ -1,8 +1,8 @@
 {
   "$schema": "../schema/benchmark.schema.json",
   "id": "CP_LQR_FIN_REA_CONVERGE",
-  "description": "Cart-pole with LQR feedback (4D), finite horizon: the state converges into a small box around the hanging equilibrium.",
-  "notes": ["The initial set is a single state (degenerate box).", "State x = (p, v, theta, omega): cart position and velocity, pole angle (counter-clockwise, zero hanging down, positive with the pole mass towards positive p) and angular velocity; Tedrake's cart-pole as printed. u = -K x is the LQR state feedback (gains k1..k4) designed by scripts/cartpole_lqr.py with Q = diag(56.5349, 27.434, 1.8689, 77.9197), R = 6.6884."],
+  "description": "Cart-pole with LQR feedback (4D), finite horizon: the state converges into a box shell around the hanging equilibrium.",
+  "notes": ["The initial set is a single state (degenerate box).", "State x = (p, v, theta, omega): cart position and velocity, pole angle (counter-clockwise, zero hanging down, positive with the pole mass towards positive p) and angular velocity; Tedrake's cart-pole as printed. u = -K x is the LQR state feedback (gains k1..k4) designed by scripts/cartpole_lqr.py with Q = diag(56.5349, 27.434, 1.8689, 77.9197), R = 6.6884.", "The target is a box shell around the equilibrium (the origin): the box of half-width 0.001 without the open box of half-width 1e-30. The equilibrium itself is excluded, as the time-to-reach bounds assume (x_e not in X_F); the hole is far smaller than the sample spacing, so the target's samples are those of the box."],
   "system": {
     "type": "nonlinear",
     "parameters": {
@@ -39,13 +39,10 @@
   ],
   "target_sets": [
     {
-      "type": "box",
-      "bounds": [
-        [-0.001, 0.001],
-        [-0.001, 0.001],
-        [-0.001, 0.001],
-        [-0.001, 0.001]
-      ]
+      "type": "box_shell",
+      "center": [0, 0, 0, 0],
+      "inner_radius": 1e-30,
+      "outer_radius": 0.001
     }
   ],
   "time_horizon": [0.0, 12.0],

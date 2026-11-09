@@ -137,27 +137,29 @@ def test_the_setting_samples_boundaries_and_in_high_dimension_vertices():
 
 
 
-def test_equilibrium_sample_is_a_target_point_next_to_the_equilibrium():
-    from tools.common.sets import Box
-    from tools.krtb.run import EQUILIBRIUM_OFFSET, equilibrium_sample
-    box = Box([[-0.1, 0.1], [-0.1, 0.1]])
-    x = equilibrium_sample(box, [0, 0])
-    assert x is not None and box.contains(x[None])[0] and 0 < np.abs(x).max() <= EQUILIBRIUM_OFFSET
-    assert equilibrium_sample(Box([[0.5, 1], [0.5, 1]]), [0, 0]) is None
-    assert equilibrium_sample(box, None) is None
+def test_equilibrium_sample_is_the_point_of_the_inner_faces_of_a_shell_around_the_equilibrium():
+    from tools.common.sets import Box, BoxShell
+    from tools.krtb.run import equilibrium_sample
+    shell = BoxShell([0, 0], 1e-30, 0.1)
+    x = equilibrium_sample(shell, [0, 0])
+    assert x is not None and shell.contains(x[None])[0] and np.abs(x).max() == 1e-30
+    assert equilibrium_sample(BoxShell([0.5, 0.5], 1e-30, 0.1), [0, 0]) is None  # a shell around another point
+    assert equilibrium_sample(Box([[-0.1, 0.1], [-0.1, 0.1]]), [0, 0]) is None  # only shells get the point
+    assert equilibrium_sample(shell, None) is None
 
 
-def test_equilibrium_sample_lifts_the_upper_end_to_the_horizon():
-    # x' = diag(-1, -2) x has psi = (x1, x2); from (1, 1) the state enters the box at ln 10 and stays in it,
-    # so the reach-time bound has no upper end. Uniform samples miss psi = 0 and cut the bound short.
-    from tools.common.sets import Box
+def test_the_point_of_the_shell_lifts_the_upper_end_to_the_horizon():
+    # x' = diag(-1, -2) x has psi = (x1, x2); from (1, 1) the state enters the shell at ln 10 and stays in it up
+    # to t ~ 69, so within the horizon 20 the reach-time bound has no upper end. Uniform samples miss the
+    # small |psi| near the hole and cut the bound short.
+    from tools.common.sets import BoxShell
     from tools.krtb.run import equilibrium_sample, sample
-    box = Box([[-0.1, 0.1], [-0.1, 0.1]])
+    shell = BoxShell([0, 0], 1e-30, 0.1)
     lams, e0 = np.array([-1.0, -2.0]), np.array([[1.0, 1.0]])
-    XF = sample(box, 1000, 1000, np.random.default_rng(0))
+    XF = sample(shell, 1000, 1000, np.random.default_rng(0))
     without = compute_reach_time_bounds(e0, XF, lams, horizon=(0.0, 20.0))
     assert max(hi for _, hi in without.intervals) < 10
-    XF = np.vstack([XF, equilibrium_sample(box, [0, 0])])
+    XF = np.vstack([XF, equilibrium_sample(shell, [0, 0])])
     with_point = compute_reach_time_bounds(e0, XF, lams, horizon=(0.0, 20.0))
     assert len(with_point.intervals) == 1
     lo, hi = with_point.intervals[0]

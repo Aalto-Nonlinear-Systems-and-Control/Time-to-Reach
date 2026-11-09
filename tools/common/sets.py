@@ -1,4 +1,4 @@
-"""Set types used for initial and target sets (box, ball, level set, union).
+"""Set types used for initial and target sets (box, ball, box shell, level set, union).
 
 Every set provides vectorized membership, a bounding box, sampling with an
 explicit numpy Generator, and a continuous "inside function" g(X) with
@@ -142,6 +142,55 @@ class Ball(Set):
 
 
 @dataclass
+class BoxShell(Set):
+    """{x : inner_radius <= ||x - center||_inf <= outer_radius}: the box of half-width outer_radius around the
+    center without the open box of half-width inner_radius.
+
+    A target around an equilibrium that excludes the equilibrium itself, as the time-to-reach bounds assume
+    (x_e not in X_F). Interior and vertex samples are those of the outer box, drawn with the same random numbers;
+    the rare samples in the hole are drawn again. boundary_sample covers the outer faces only: a sampler that
+    needs the inner faces (where the principal eigenfunctions, which vanish at the center, are smallest) adds
+    their points itself (tools.krtb.run.equilibrium_sample).
+    """
+    center: np.ndarray
+    inner_radius: float
+    outer_radius: float
+    kind = "box_shell"
+
+    def __post_init__(self):
+        self.center = np.asarray(self.center, dtype=float)
+        self.inner_radius, self.outer_radius = float(self.inner_radius), float(self.outer_radius)
+        if not 0 < self.inner_radius < self.outer_radius:
+            raise ValueError("a box shell needs 0 < inner_radius < outer_radius")
+        self.dim = self.center.shape[0]
+        self.outer = Box(np.stack([self.center - self.outer_radius, self.center + self.outer_radius], axis=1))
+
+    def inside_function(self, X):
+        # outside the outer box: its Euclidean distance; inside: minus the distance to the nearest face, outer
+        # or inner, so that g <= 0 exactly on the shell and g > 0 in the hole
+        X = np.atleast_2d(X)
+        hole = self.inner_radius - np.abs(X - self.center).max(axis=1)
+        return np.maximum(self.outer.inside_function(X), hole)
+
+    def bounding_box(self):
+        return self.outer.bounding_box()
+
+    def sample(self, n, rng):
+        pts = self.outer.sample(n, rng)
+        hole = ~self.contains(pts)
+        while hole.any():
+            pts[hole] = self.outer.sample(int(hole.sum()), rng)
+            hole = ~self.contains(pts)
+        return pts
+
+    def boundary_sample(self, n, rng):
+        return self.outer.boundary_sample(n, rng)
+
+    def vertex_sample(self, n, rng):
+        return self.outer.vertex_sample(n, rng)
+
+
+@dataclass
 class LevelSet(Set):
     function: str
     box: np.ndarray
@@ -279,6 +328,8 @@ def make_set(spec, n):
         s = Box(spec["bounds"])
     elif kind == "ball":
         s = Ball(spec["center"], spec["radius"])
+    elif kind == "box_shell":
+        s = BoxShell(spec["center"], spec["inner_radius"], spec["outer_radius"])
     elif kind == "level_set":
         s = LevelSet(spec["function"], spec["bounding_box"])
     else:

@@ -1,12 +1,14 @@
 function run_cora(configPath, settingsPath, outPath)
 % RUN_CORA - CORA reachability on one benchmark; called by tools/cora/run.py.
 %
-% The benchmark is a forward problem from one initial box to one target box;
-% tools/cora/run.py reports every other benchmark as unsupported. The vector
-% field is generated from the config's equation strings. Every time-interval
-% reachable set is compared with the target box:
-%   disjoint  no intersection (CORA's isIntersecting)
-%   inside    the interval hull of the set lies in the target (CORA's contains)
+% The benchmark is a forward problem from one initial box to one target box or
+% box shell (a box without the open box of half-width inner_radius around its
+% centre); tools/cora/run.py reports every other benchmark as unsupported. The
+% vector field is generated from the config's equation strings. Every
+% time-interval reachable set is compared with the target:
+%   disjoint  no intersection with the target's outer box (CORA's isIntersecting)
+%   inside    the interval hull of the set lies in the outer box (CORA's contains)
+%             and, for a shell, does not meet the inner box (isIntersecting)
 %   possible  otherwise
 % A set inside the target proves that the target is reached: the reachable
 % sets are over-approximations, so every trajectory is then in the target. No
@@ -33,7 +35,7 @@ options = struct('timeStep', st.timeStep, 'taylorTerms', st.taylorTerms, ...
 t0 = cfg.time_horizon(1);
 t1 = cfg.time_horizon(2);
 R0 = zonotope(aux_box(cfg.initial_sets));
-T = aux_box(cfg.target_sets);
+[T, Tin] = aux_target(cfg.target_sets);
 
 % warm-up: derivative generation and first calls are not part of the timed reach
 params = struct('tStart', t0, 'tFinal', t0 + 2 * st.timeStep, 'R0', R0, 'U', zonotope(0));
@@ -66,7 +68,7 @@ for r = 1:numel(R)
         H = interval(S);
         if ~isIntersecting(S, T)
             status = 0;
-        elseif contains(T, H)
+        elseif contains(T, H) && (isempty(Tin) || ~isIntersecting(Tin, H))
             status = 2;
         else
             status = 1;
@@ -137,6 +139,24 @@ if numel(raw) ~= 1 || ~strcmp(raw.type, 'box')
     error('run_cora:unsupported', 'one box is expected');
 end
 I = interval(raw.bounds(:, 1), raw.bounds(:, 2));
+end
+
+function [T, Tin] = aux_target(raw)
+% the target's outer box, and the inner box of a box shell ([] for a box)
+if iscell(raw)
+    if numel(raw) ~= 1
+        error('run_cora:unsupported', 'one target set is expected, got %d sets', numel(raw));
+    end
+    raw = raw{1};
+end
+Tin = [];
+if strcmp(raw.type, 'box_shell')
+    c = raw.center(:);
+    T = interval(c - raw.outer_radius, c + raw.outer_radius);
+    Tin = interval(c - raw.inner_radius, c + raw.inner_radius);
+else
+    T = aux_box(raw);
+end
 end
 
 function m = aux_merge(seg)
