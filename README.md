@@ -2,6 +2,8 @@
 
 <p align="center"><b>Online report: <a href="https://aalto-nonlinear-systems-and-control.github.io/Time-to-Reach/">https://aalto-nonlinear-systems-and-control.github.io/Time-to-Reach/</a></b></p>
 
+<p align="center"><b>Benchmark specifications (PDF): <a href="Benchmark_Specifications.pdf">Benchmark_Specifications.pdf</a></b></p>
+
 <p align="center"><img src="docs/pipeline.gif" width="100%" alt="Pipeline of the method: reach-time bounds from the Koopman spectrum, and verification with the bounds"></p>
 
 This repository holds the code, the benchmarks and the results of the paper *Time-to-reach Bounds for Verification of Dynamical Systems Using the Koopman Spectrum* by Jianqiang Ding and Shankar A. Deka.
@@ -268,21 +270,22 @@ The tests cover the following:
 
 ## Repository layout
 
-| Path                  | Contents                                                                                         |
-| --------------------- | ------------------------------------------------------------------------------------------------ |
-| `configs/benchmarks/` | One JSON file per benchmark: dynamics, domain, initial and target sets, horizon, expected result |
-| `configs/settings/`   | The parameters of every tool (one comparison setting, setting_0)                                 |
-| `configs/schema/`     | JSON schemas of the configs and of the result records                                            |
-| `tools/common/`       | Shared code: loading benchmarks, sets, simulation, result records, memory and time limits        |
-| `tools/krtb/`         | KRTB: principal eigenfunctions (analytic or path integral) and reach-time bounds                 |
-| `tools/cora/`         | CORA runner (MATLAB; CORA is the submodule tools/cora/CORA)                                      |
-| `tools/juliareach/`   | JuliaReach runner (Julia; pinned Project.toml and Manifest.toml)                                 |
-| `tools/dreach/`       | dReach runner and Dockerfile; the .drh models are generated from the configs                     |
-| `tools/hj/`           | hj_reachability runner                                                                           |
-| `tools/sosbc/`        | SOS barrier certificates (MATLAB; SOSTOOLS is the submodule tools/sosbc/SOSTOOLS)                |
-| `scripts/`            | Simulation baseline, evaluation, tables, figures, robustness study, cart-pole LQR design         |
-| `results/summary/`    | Result records of every tool, the simulation baseline, the evaluation and the tables             |
-| `tests/`              | pytest suite                                                                                     |
-| `docs/pipeline.gif`   | The animated pipeline figure above                                                               |
+| Path                           | Contents                                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `configs/benchmarks/`          | One JSON file per benchmark: dynamics, domain, initial and target sets, horizon, expected result |
+| `configs/settings/`            | The parameters of every tool (one comparison setting, setting_0)                                 |
+| `configs/schema/`              | JSON schemas of the configs and of the result records                                            |
+| `tools/common/`                | Shared code: loading benchmarks, sets, simulation, result records, memory and time limits        |
+| `tools/krtb/`                  | KRTB: principal eigenfunctions (analytic or path integral) and reach-time bounds                 |
+| `tools/cora/`                  | CORA runner (MATLAB; CORA is the submodule tools/cora/CORA)                                      |
+| `tools/juliareach/`            | JuliaReach runner (Julia; pinned Project.toml and Manifest.toml)                                 |
+| `tools/dreach/`                | dReach runner and Dockerfile; the .drh models are generated from the configs                     |
+| `tools/hj/`                    | hj_reachability runner                                                                           |
+| `tools/sosbc/`                 | SOS barrier certificates (MATLAB; SOSTOOLS is the submodule tools/sosbc/SOSTOOLS)                |
+| `scripts/`                     | Simulation baseline, evaluation, tables, figures, robustness study, cart-pole LQR design         |
+| `results/summary/`             | Result records of every tool, the simulation baseline, the evaluation and the tables             |
+| `tests/`                       | pytest suite                                                                                     |
+| `docs/pipeline.gif`            | The animated pipeline figure above                                                               |
+| `Benchmark_Specifications.pdf` | Every benchmark with its specification and the result of every tool                              |
 
 Everything a run writes outside `results/summary/` goes to other folders under `results/`, such as raw tool output, figures and videos. These folders are not tracked.
