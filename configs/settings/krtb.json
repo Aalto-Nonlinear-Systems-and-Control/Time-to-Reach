@@ -1,0 +1,108 @@
+{
+  "tool": "krtb",
+  "settings": {
+    "setting_0": {
+      "description": "The KRTB parameters of the comparison. The principal eigenfunctions are analytic or evaluated by path integrals (T: integration time). They are evaluated on num_samples_* uniform points inside the initial and the target set, boundary_samples_* points on the boundary of the set and vertex_samples_* points towards the vertices of its bounding box (random vertices of a box; for a level set, most coordinates at a bound and one coordinate bisected onto the level set), so that the sampled extrema of log|psi| and arg(psi) have converged and the reach-time bounds agree with the simulated reach times. The cart-pole initial set is a single point. num_sim_samples is the number of initial points (half interior, half boundary) simulated to look for a witness inside the reach-time bounds; it does not affect the bounds.",
+      "defaults": {
+        "num_samples_initial": 1000,
+        "num_samples_target": 1000,
+        "boundary_samples_initial": 1000,
+        "boundary_samples_target": 1000,
+        "num_sim_samples": 100,
+        "seed": 0,
+        "path_integral": {"rtol": 1e-12, "atol": 1e-14, "batch": 64, "dt": 0.02}
+      },
+      "benchmarks": {
+        "CP_LQR_FIN_REA_CONVERGE": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [0, 0, 0, 0], "T": 50},
+          "num_samples_initial": 1,
+          "num_samples_target": 5000,
+          "boundary_samples_initial": 0
+        },
+        "CP_LQR_FIN_REA_UNSAFE": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [0, 0, 0, 0], "T": 50},
+          "num_samples_initial": 1,
+          "num_samples_target": 10000,
+          "boundary_samples_initial": 0,
+          "boundary_samples_target": 2000,
+          "vertex_samples_target": 20000
+        },
+        "CP_LQR_FIN_UNR_SAFE": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [0, 0, 0, 0], "T": 50},
+          "num_samples_initial": 1,
+          "num_samples_target": 10000,
+          "boundary_samples_initial": 0,
+          "boundary_samples_target": 2000,
+          "vertex_samples_target": 20000
+        },
+        "DUFF_FIN_REA_BALL": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [1, 0], "T": 100},
+          "num_sim_samples": 1000
+        },
+        "DUFF_FIN_REA_BOX": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [1, 0], "T": 100},
+          "num_sim_samples": 1000
+        },
+        "DUFF_FIN_REA_DISJOINT_BOX": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [1, 0], "T": 100},
+          "num_samples_target": 2000,
+          "boundary_samples_target": 2000,
+          "num_sim_samples": 1000
+        },
+        "DUFF_FIN_REA_NONCONVEX_LEVEL_SET": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [1, 0], "T": 100}
+        },
+        "DUFF_FIN_UNR_BALL": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [1, 0], "T": 100}
+        },
+        "DUFF_FIN_UNR_BOX": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [1, 0], "T": 100}
+        },
+        "MAS_CON_FIN_REA_BOX": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "T": 70},
+          "num_samples_initial": 100,
+          "boundary_samples_initial": 100,
+          "vertex_samples_initial": 2000,
+          "vertex_samples_target": 2000,
+          "num_sim_samples": 1000
+        },
+        "MAS_CON_FIN_UNR_SAFE_0": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "T": 70},
+          "num_samples_initial": 100,
+          "boundary_samples_initial": 100,
+          "vertex_samples_initial": 2000,
+          "vertex_samples_target": 2000,
+          "num_sim_samples": 1000
+        },
+        "MAS_CON_FIN_UNR_SAFE_1": {
+          "eigenfunctions": {"method": "path_integral", "equilibrium": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "T": 70},
+          "num_samples_initial": 100,
+          "boundary_samples_initial": 100,
+          "vertex_samples_initial": 2000,
+          "vertex_samples_target": 2000,
+          "num_sim_samples": 1000
+        },
+        "NL_EIG_FIN_BACKWARD_REA_BOX": {
+          "eigenfunctions": {"method": "analytic", "functions": ["x1^2 + 2*x2 + x2^3", "x1 + sin(x2) + x1^3"], "eigenvalues": ["-1", "2.5"]}
+        },
+        "NL_EIG_FIN_BACKWARD_UNR_BOX": {
+          "eigenfunctions": {"method": "analytic", "functions": ["x1^2 + 2*x2 + x2^3", "x1 + sin(x2) + x1^3"], "eigenvalues": ["-1", "2.5"]}
+        },
+        "NL_SLC_FIN_REA_BOX": {
+          "eigenfunctions": {"method": "analytic", "functions": ["(1 - x1^2 - x2^2)^2*exp(I*atan2(x2, x1))", "(1 - x1^2 - x2^2)^2*exp(-I*atan2(x2, x1))"], "eigenvalues": ["-1-1j", "-1+1j"]},
+          "num_samples_initial": 2000,
+          "num_samples_target": 2000,
+          "boundary_samples_initial": 2000,
+          "boundary_samples_target": 2000
+        },
+        "NL_SLC_FIN_UNR_BOX": {
+          "eigenfunctions": {"method": "analytic", "functions": ["(1 - x1^2 - x2^2)^2*exp(I*atan2(x2, x1))", "(1 - x1^2 - x2^2)^2*exp(-I*atan2(x2, x1))"], "eigenvalues": ["-1-1j", "-1+1j"]},
+          "num_samples_initial": 2000,
+          "num_samples_target": 2000,
+          "boundary_samples_initial": 2000,
+          "boundary_samples_target": 2000
+        }
+      }
+    }
+  }
+}

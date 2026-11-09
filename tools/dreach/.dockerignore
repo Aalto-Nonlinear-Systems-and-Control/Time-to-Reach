@@ -1,0 +1,3 @@
+# The image only needs the self-test models from the build context.
+*
+!selftest

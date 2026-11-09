@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "benchmark": "DUFF_FIN_REA_NONCONVEX_LEVEL_SET",
+  "tool": "hj",
+  "setting": "setting_0",
+  "verdict": "reachable_estimated",
+  "expected_result": "reachable",
+  "agrees_with_expected": true,
+  "detail": "min V over the initial set -0.222 <= 0",
+  "time_horizon": [0.0, 6.0],
+  "horizon_covered": true,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "setup": 0.3988209170056507,
+    "compile_and_first_step": 0.28627204199437983,
+    "solve": 16.192777625023155,
+    "total": 17.37557079200633
+  },
+  "params": {
+    "grid_size": 500,
+    "accuracy": "medium",
+    "time_step_report": 0.005,
+    "num_samples_initial": 2000,
+    "boundary_samples_initial": 2000,
+    "seed": 0,
+    "memory_limit_gb": 8,
+    "timeout_s": 1800
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T19:41:35+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "sympy": "1.14.0",
+      "jax": "0.11.2",
+      "jaxlib": "0.11.2",
+      "hj_reachability": "0.7.0"
+    }
+  },
+  "extra": {
+    "direction": "forward",
+    "grid_shape": [500, 500],
+    "grid_spacing": [0.00541082164272666, 0.006813627667725086],
+    "min_value_over_initial": -0.22173137962818146,
+    "first_reach_time_estimate": 5.165,
+    "num_initial_samples": 4000,
+    "jax_devices": ["cpu:0"],
+    "memory_limit_gb": 8,
+    "grid_nodes": 250000.0,
+    "grid_memory_gb": 0.003,
+    "peak_memory_gb": 0.204980224
+  }
+}

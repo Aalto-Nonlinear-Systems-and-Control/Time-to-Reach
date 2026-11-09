@@ -1,0 +1,54 @@
+{
+  "tool": "hj",
+  "settings": {
+    "setting_0": {
+      "description": "hj_reachability 0.7.0 on a uniform grid over the benchmark domain. 2D: 500 nodes per dimension and accuracy 'medium', as in the original runners (an even count keeps the NL_SLC singular origin off the grid). CP_LQR (4D): 100 nodes per dimension and accuracy 'low', as in the original runners; MAS_CON (16D) uses the same values. Any target set is put on the grid as the values of its defining function at the nodes (boxes and balls: their signed distance; a level set: the function itself within its bounding box). Each computation runs in its own process and is reported as out of memory when its memory footprint exceeds memory_limit_gb (8 GB; the 4D grid of 100^4 nodes exceeds it within a few seconds and peaks near 14 GB, so that with a limit of 16 GB it runs into the time limit instead), or without being started when the node coordinates and one value array of the grid alone exceed it; in 16D any grid with at least 4 nodes per dimension does (4^16 nodes: 17 GB for one value array). It is reported as timeout after timeout_s, the budget of the other tools. Values are reported every time_step_report; the verdict is the sign of the smallest value over the samples of the initial set, without a tolerance. Every benchmark is solved with its own vector field, unchanged.",
+      "defaults": {
+        "grid_size": 500,
+        "accuracy": "medium",
+        "time_step_report": 0.005,
+        "num_samples_initial": 2000,
+        "boundary_samples_initial": 2000,
+        "seed": 0,
+        "memory_limit_gb": 8,
+        "timeout_s": 1800
+      },
+      "benchmarks": {
+        "CP_LQR_FIN_REA_CONVERGE": {
+          "grid_size": 100,
+          "accuracy": "low"
+        },
+        "CP_LQR_FIN_REA_UNSAFE": {
+          "grid_size": 100,
+          "accuracy": "low"
+        },
+        "CP_LQR_FIN_UNR_SAFE": {
+          "grid_size": 100,
+          "accuracy": "low"
+        },
+        "DUFF_FIN_REA_BALL": {},
+        "DUFF_FIN_REA_BOX": {},
+        "DUFF_FIN_REA_DISJOINT_BOX": {},
+        "DUFF_FIN_REA_NONCONVEX_LEVEL_SET": {},
+        "DUFF_FIN_UNR_BALL": {},
+        "DUFF_FIN_UNR_BOX": {},
+        "MAS_CON_FIN_REA_BOX": {
+          "grid_size": 100,
+          "accuracy": "low"
+        },
+        "MAS_CON_FIN_UNR_SAFE_0": {
+          "grid_size": 100,
+          "accuracy": "low"
+        },
+        "MAS_CON_FIN_UNR_SAFE_1": {
+          "grid_size": 100,
+          "accuracy": "low"
+        },
+        "NL_EIG_FIN_BACKWARD_REA_BOX": {},
+        "NL_EIG_FIN_BACKWARD_UNR_BOX": {},
+        "NL_SLC_FIN_REA_BOX": {},
+        "NL_SLC_FIN_UNR_BOX": {}
+      }
+    }
+  }
+}

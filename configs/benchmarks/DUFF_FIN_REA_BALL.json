@@ -1,0 +1,34 @@
+{
+  "$schema": "../schema/benchmark.schema.json",
+  "id": "DUFF_FIN_REA_BALL",
+  "description": "Duffing oscillator, finite horizon, reachable, ball sets.",
+  "system": {
+    "type": "nonlinear",
+    "equations": ["x2", "-0.5*x2 - x1*(x1^2-1)"]
+  },
+  "domain": [
+    [-1.0, 2.0],
+    [-1.2, 2.0]
+  ],
+  "initial_sets": [
+    {
+      "type": "ball",
+      "center": [-0.75, 1.78],
+      "radius": 0.1
+    }
+  ],
+  "target_sets": [
+    {
+      "type": "ball",
+      "center": [1.3, -0.8],
+      "radius": 0.1
+    }
+  ],
+  "time_horizon": [0.0, 6],
+  "expected_result": "reachable",
+  "visualization": {
+    "dims": [
+      [0, 1]
+    ]
+  }
+}

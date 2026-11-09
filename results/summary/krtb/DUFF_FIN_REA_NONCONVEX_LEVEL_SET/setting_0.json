@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "benchmark": "DUFF_FIN_REA_NONCONVEX_LEVEL_SET",
+  "tool": "krtb",
+  "setting": "setting_0",
+  "verdict": "reachable_witness",
+  "expected_result": "reachable",
+  "agrees_with_expected": true,
+  "detail": "witness reaches the target at t = 5.189",
+  "time_horizon": [0.0, 6.0],
+  "horizon_covered": true,
+  "reach_time_bounds": [
+    [5.048379116659507, 5.830674297735419]
+  ],
+  "runtime_s": {
+    "total": 4.814366958977189,
+    "setup": 0.021668959001544863,
+    "eigenpairs": 4.777447332977317,
+    "bounds": 0.008296708023408428,
+    "krtb": 4.785744041000726,
+    "witness_search": 0.006953958974918351
+  },
+  "params": {
+    "num_samples_initial": 1000,
+    "num_samples_target": 1000,
+    "boundary_samples_initial": 1000,
+    "boundary_samples_target": 1000,
+    "num_sim_samples": 100,
+    "seed": 0,
+    "path_integral": {
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "batch": 64,
+      "dt": 0.02
+    },
+    "eigenfunctions": {
+      "method": "path_integral",
+      "equilibrium": [1, 0],
+      "T": 100
+    }
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T16:21:23+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0",
+      "cvxpy": "1.9.3",
+      "Mosek": "11.2.6"
+    }
+  },
+  "extra": {
+    "direction": "forward",
+    "eigenvalues": [
+      [-0.24999999999999994, 1.3919410907075052],
+      [-0.24999999999999994, -1.3919410907075052]
+    ],
+    "eigenfunctions": {
+      "method": "path_integral",
+      "equilibrium": [1.0, 0.0],
+      "T": 100,
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "quadrature_points": 5001,
+      "spectral_margin": 0.24999999999999994,
+      "min_truncation_time": 98.26,
+      "max_relative_integrand_at_truncation": 4.75493851552653e-11
+    },
+    "bounds_status": "bounded",
+    "bounds_unclipped": [
+      [5.048379116659507, 5.830674297735419]
+    ],
+    "magnitude_interval": [3.789878865544895, 7.638896172569654],
+    "phase_window": [-3.9795680416299684, -3.197272860554056],
+    "period": 4.5139735791447375,
+    "bound_details": {
+      "magnitude": {
+        "growing_cone": ["-inf", "inf"],
+        "decaying_cone": [3.789878865544895, 7.638896172569654],
+        "lfp_status": ["infeasible", "infeasible", "optimal", "optimal"]
+      },
+      "phase": {
+        "lfp_status": ["optimal", "optimal"],
+        "weights": [1.0, -0.0]
+      }
+    },
+    "witness": {
+      "x0": [-0.842877120613317, 1.9420116642378957],
+      "first_hit_time": 5.1893001249845225,
+      "inside_bounds": true
+    },
+    "num_samples": {
+      "initial": 2000,
+      "target": 2000
+    }
+  }
+}

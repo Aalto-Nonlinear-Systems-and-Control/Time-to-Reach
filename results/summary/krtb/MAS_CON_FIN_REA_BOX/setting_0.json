@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "benchmark": "MAS_CON_FIN_REA_BOX",
+  "tool": "krtb",
+  "setting": "setting_0",
+  "verdict": "reachable_witness",
+  "expected_result": "reachable",
+  "agrees_with_expected": true,
+  "detail": "witness reaches the target at t = 5.921",
+  "time_horizon": [0.0, 7.0],
+  "horizon_covered": true,
+  "reach_time_bounds": [
+    [4.948831663923701, 7.0]
+  ],
+  "runtime_s": {
+    "total": 57.08188208399952,
+    "setup": 0.10873712500324473,
+    "eigenpairs": 56.931790167000145,
+    "bounds": 0.012261207994015422,
+    "krtb": 56.94405137499416,
+    "witness_search": 0.02909358400211204
+  },
+  "params": {
+    "num_samples_initial": 100,
+    "num_samples_target": 1000,
+    "boundary_samples_initial": 100,
+    "boundary_samples_target": 1000,
+    "num_sim_samples": 1000,
+    "seed": 0,
+    "path_integral": {
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "batch": 64,
+      "dt": 0.02
+    },
+    "eigenfunctions": {
+      "method": "path_integral",
+      "equilibrium": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      "T": 70
+    },
+    "vertex_samples_initial": 2000,
+    "vertex_samples_target": 2000
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-08T08:14:46+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0",
+      "cvxpy": "1.9.3",
+      "Mosek": "11.2.6"
+    }
+  },
+  "extra": {
+    "direction": "forward",
+    "eigenvalues": [
+      [-0.4419366174446252, 0.0],
+      [-0.8388746294683014, 0.0],
+      [-0.8192178452021566, 0.0],
+      [-0.5085371517719756, 0.0],
+      [-0.7191824035400425, 0.0],
+      [-0.6692277681765949, 0.0],
+      [-0.6446628875446073, 0.0],
+      [-0.5651444749740161, 0.0],
+      [-0.4419366174446255, 0.0],
+      [-0.8718732348892506, 0.0],
+      [-0.7786723139119601, 0.0],
+      [-0.5845453296115489, 0.0],
+      [-0.7052652790180854, 0.0],
+      [-0.6715161060383069, 0.0],
+      [-0.6265895803397844, 0.00391729982098053],
+      [-0.6265895803397844, -0.00391729982098053]
+    ],
+    "eigenfunctions": {
+      "method": "path_integral",
+      "equilibrium": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+      "T": 70,
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "quadrature_points": 3501,
+      "spectral_margin": 0.011999999999999789,
+      "min_truncation_time": 0.0,
+      "max_relative_integrand_at_truncation": 0.9963374352176988
+    },
+    "bounds_status": "bounded",
+    "bounds_unclipped": [
+      [4.948831663923701, 7.0]
+    ],
+    "magnitude_interval": [4.948831663923701, 78.84177546456195],
+    "phase_window": [-289.089581324237, 1422.5882216662912],
+    "period": 1603.9582350903274,
+    "bound_details": {
+      "magnitude": {
+        "growing_cone": ["-inf", "inf"],
+        "decaying_cone": [4.948831663923701, 78.84177546456195],
+        "lfp_status": ["infeasible", "infeasible", "optimal", "optimal"]
+      },
+      "phase": {
+        "lfp_status": ["optimal", "optimal"],
+        "weights": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, -0.0]
+      }
+    },
+    "witness": {
+      "x0": [2.27569841, -1.2270091746339764, -1.7150682596624944, 1.9302753953934237, 2.1157202183916803, -1.5384803826674507, -0.2442061884332877, 1.023265371535951, 1.6547857361484515, -1.6708077850891654, 0.7611041254370066, 1.5407161240953717, 0.3426026528995004, -1.6434533825585742, -2.39752611016231, -1.0037174457728157],
+      "first_hit_time": 5.921061432037366,
+      "inside_bounds": true
+    },
+    "num_samples": {
+      "initial": 2200,
+      "target": 4001
+    },
+    "equilibrium_sample": [2.754319153369375e-31, -4.629622166906182e-31, -9.23108819445846e-31, -9.72269851249093e-31, 6.299909389877644e-31, 8.300573791032575e-31, 2.144460727477745e-31, 4.615208719406697e-31, 8.773048281507827e-32, 8.749368771494215e-31, 6.3518602230337135e-31, -1e-30, 7.187451204443989e-31, -9.37966089983095e-31, 4.618403928486829e-31, -6.522611935740491e-31]
+  }
+}

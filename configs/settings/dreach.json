@@ -1,0 +1,34 @@
+{
+  "tool": "dreach",
+  "settings": {
+    "setting_0": {
+      "description": "dReach from dReal3 at commit 7f31797b (tools/dreach/Dockerfile), one mode without jumps (-k 0), the same timeout for every benchmark. precision is dReal's delta; CP_LQR_FIN_REA_CONVERGE uses 1e-5 because its target half-width is 1e-3.",
+      "defaults": {
+        "image": "dreach:dreal3-7f31797b",
+        "k": 0,
+        "precision": 0.001,
+        "timeout_s": 1800
+      },
+      "benchmarks": {
+        "CP_LQR_FIN_REA_CONVERGE": {
+          "precision": 1e-05
+        },
+        "CP_LQR_FIN_REA_UNSAFE": {},
+        "CP_LQR_FIN_UNR_SAFE": {},
+        "DUFF_FIN_REA_BALL": {},
+        "DUFF_FIN_REA_BOX": {},
+        "DUFF_FIN_REA_DISJOINT_BOX": {},
+        "DUFF_FIN_REA_NONCONVEX_LEVEL_SET": {},
+        "DUFF_FIN_UNR_BALL": {},
+        "DUFF_FIN_UNR_BOX": {},
+        "MAS_CON_FIN_REA_BOX": {},
+        "MAS_CON_FIN_UNR_SAFE_0": {},
+        "MAS_CON_FIN_UNR_SAFE_1": {},
+        "NL_EIG_FIN_BACKWARD_REA_BOX": {},
+        "NL_EIG_FIN_BACKWARD_UNR_BOX": {},
+        "NL_SLC_FIN_REA_BOX": {},
+        "NL_SLC_FIN_UNR_BOX": {}
+      }
+    }
+  }
+}

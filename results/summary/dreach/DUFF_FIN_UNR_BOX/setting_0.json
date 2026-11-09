@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "benchmark": "DUFF_FIN_UNR_BOX",
+  "tool": "dreach",
+  "setting": "setting_0",
+  "verdict": "timeout",
+  "expected_result": "unreachable",
+  "agrees_with_expected": null,
+  "detail": "no answer within 1800 s",
+  "time_horizon": [0.0, 20.0],
+  "horizon_covered": false,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 1800.2275212079985,
+    "dreach": null,
+    "container_overhead": null
+  },
+  "params": {
+    "image": "dreach:dreal3-7f31797b",
+    "k": 0,
+    "precision": 0.001,
+    "timeout_s": 1800,
+    "image_id": "sha256:9b773a5a2ffda8cce6ca9c90f7dca9bfc26b220dabb14c00879ec5cd65226ea9",
+    "host_machine": "arm64",
+    "emulated": true
+  },
+  "provenance": {
+    "git_commit": "f343df849dabd991bb9795c662d80ecb86e3c855",
+    "git_dirty": true,
+    "timestamp": "2026-10-25T13:04:08+00:00",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6"
+    }
+  },
+  "extra": {
+    "model": "/Users/jianqiang/Documents/Overleaf_Github_Sync/Time-to-Reach/results/raw/dreach/DUFF_FIN_UNR_BOX/setting_0/DUFF_FIN_UNR_BOX.drh",
+    "stdout_tail": [
+      "dReal Options: --precision 0.001",
+      "SMT: DUFF_FIN_UNR_BOX_0_0.smt2, PATH : [1]"
+    ]
+  }
+}

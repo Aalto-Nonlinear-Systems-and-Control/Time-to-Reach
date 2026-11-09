@@ -1,7 +1,10 @@
-[submodule "tools/cora/versions/CORA-v2025.2.0"]
-	path = tools/cora/versions/CORA-v2025.2.0
+[submodule "tools/cora/CORA"]
+	path = tools/cora/CORA
 	url = https://github.com/TUMcps/CORA.git
-
-[submodule "tools/cora/versions/CORA-v2024.4.1"]
-	path = tools/cora/versions/CORA-v2024.4.1
-	url = https://github.com/TUMcps/CORA.git
+	shallow = true
+	ignore = untracked
+[submodule "tools/sosbc/SOSTOOLS"]
+	path = tools/sosbc/SOSTOOLS
+	url = https://github.com/oxfordcontrol/SOSTOOLS.git
+	shallow = true
+	ignore = untracked

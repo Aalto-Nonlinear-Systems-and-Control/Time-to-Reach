@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "benchmark": "MAS_CON_FIN_REA_BOX",
+  "tool": "ground_truth",
+  "setting": "simulation",
+  "verdict": "reachable_witness",
+  "expected_result": "reachable",
+  "agrees_with_expected": true,
+  "detail": "2000/2000 sampled trajectories reach the target",
+  "time_horizon": [0.0, 7.0],
+  "horizon_covered": true,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 13.313922707980964
+  },
+  "params": {
+    "direction": "forward",
+    "integrator": "DOP853",
+    "rtol": 1e-09,
+    "atol": 1e-11,
+    "event_detection": true
+  },
+  "provenance": {
+    "git_commit": "48463789a2a4ca92a8193c740238cac0cd898527",
+    "git_dirty": false,
+    "timestamp": "2026-10-15T09:06:21+00:00",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0"
+    }
+  },
+  "extra": {
+    "samples": {
+      "interior": 1000,
+      "boundary": 1000,
+      "unique_initial_points": 2000,
+      "seed": 0
+    },
+    "num_hitting": 2000,
+    "num_trajectories": 2000,
+    "closest_approach": {
+      "value": -0.048385792978849776,
+      "kind": "euclidean_distance",
+      "x0": [2.4630886703632853, -1.0805576231908225, -1.5557088359912172, 1.9082870196702957, 2.14591232, -1.4550056242734661, -0.2076860881706948, 1.1775563792293562, 1.8172193307934408, -1.6306318337220667, 0.9114623345768633, 1.4903173358515416, 0.3154322088676955, -1.631786957705243, -2.3410262706278857, -1.1256079718334995],
+      "time": 7.0
+    },
+    "max_domain_violation": 0.0,
+    "problems": [],
+    "info": [],
+    "witness": {
+      "x0": [2.3534150505961255, -1.1491829337699555, -1.5681536005991044, 1.9043263516321982, 2.0863606075462657, -1.5706154306499014, -0.25480265806192515, 1.0704166140076476, 1.7776201495458421, -1.6030543379738982, 0.8964845141041398, 1.575200690303669, 0.3485706, -1.6015760898784537, -2.222892507149329, -1.133437448809575],
+      "first_hit_time": 5.734547122148391
+    },
+    "first_hit_time_range": [5.734547122148391, 5.97615279817467],
+    "in_target_times": [
+      [5.734547122148391, 7.0]
+    ]
+  }
+}

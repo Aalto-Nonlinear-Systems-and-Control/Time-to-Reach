@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "benchmark": "CP_LQR_FIN_REA_CONVERGE",
+  "tool": "krtb",
+  "setting": "setting_0",
+  "verdict": "reachable_witness",
+  "expected_result": "reachable",
+  "agrees_with_expected": true,
+  "detail": "witness reaches the target at t = 9.952",
+  "time_horizon": [0.0, 12.0],
+  "horizon_covered": true,
+  "reach_time_bounds": [
+    [8.168143360602157, 12.0]
+  ],
+  "runtime_s": {
+    "total": 6.884681458002888,
+    "setup": 0.020614875000319444,
+    "eigenpairs": 6.824311165997642,
+    "bounds": 0.019895083998562768,
+    "krtb": 6.844206249996205,
+    "witness_search": 0.019860333006363362
+  },
+  "params": {
+    "num_samples_initial": 1,
+    "num_samples_target": 5000,
+    "boundary_samples_initial": 0,
+    "boundary_samples_target": 1000,
+    "num_sim_samples": 100,
+    "seed": 0,
+    "path_integral": {
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "batch": 64,
+      "dt": 0.02
+    },
+    "eigenfunctions": {
+      "method": "path_integral",
+      "equilibrium": [0, 0, 0, 0],
+      "T": 50
+    }
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-08T13:53:05+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0",
+      "cvxpy": "1.9.3",
+      "Mosek": "11.2.6"
+    }
+  },
+  "extra": {
+    "direction": "forward",
+    "eigenvalues": [
+      [-0.770572688971497, 0.6286999186817913],
+      [-0.770572688971497, -0.6286999186817913],
+      [-0.8584987199849408, 3.698151656978766],
+      [-0.8584987199849408, -3.698151656978766]
+    ],
+    "eigenfunctions": {
+      "method": "path_integral",
+      "equilibrium": [0.0, 0.0, 0.0, 0.0],
+      "T": 50,
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "quadrature_points": 2501,
+      "spectral_margin": 0.6826466579580532,
+      "min_truncation_time": 0.0,
+      "max_relative_integrand_at_truncation": 0.0117690383423471
+    },
+    "bounds_status": "bounded",
+    "bounds_unclipped": [
+      [8.168143360602157, 12.0]
+    ],
+    "magnitude_interval": [8.168143360602157, 80.6069953208336],
+    "phase_window": [-0.7889578421681236, 0.9098096307194636],
+    "period": 1.69900693372664,
+    "bound_details": {
+      "magnitude": {
+        "growing_cone": ["-inf", "inf"],
+        "decaying_cone": [8.168143360602157, 80.6069953208336],
+        "lfp_status": ["infeasible", "infeasible", "optimal", "optimal"]
+      },
+      "phase": {
+        "lfp_status": ["optimal", "optimal"],
+        "weights": [0.0, 0.0, 1.0, -0.0]
+      }
+    },
+    "witness": {
+      "x0": [0.8, 0.3, -0.7853981633974483, 0.2],
+      "first_hit_time": 9.951599007245681,
+      "inside_bounds": true
+    },
+    "num_samples": {
+      "initial": 1,
+      "target": 6017
+    },
+    "equilibrium_sample": [2.832875204173873e-31, -4.761663812735139e-31, -9.49436844369813e-31, -1e-30]
+  }
+}

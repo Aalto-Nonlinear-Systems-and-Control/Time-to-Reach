@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "benchmark": "NL_SLC_FIN_REA_BOX",
+  "tool": "cora",
+  "setting": "setting_0",
+  "verdict": "set_explosion",
+  "expected_result": "reachable",
+  "agrees_with_expected": null,
+  "detail": "reachable set stops at t = 1.7 before the end of the horizon",
+  "time_horizon": [0.0, 15.0],
+  "horizon_covered": false,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 8.135435250005685,
+    "warmup": 0.8428052083333334,
+    "reach": 2.3861838333333334,
+    "check": 0.764414125
+  },
+  "params": {
+    "matlab_release": "R2025a",
+    "alg": "lin",
+    "tensorOrder": 2,
+    "taylorTerms": 4,
+    "zonotopeOrder": 50,
+    "timeStep": 0.01,
+    "timeout_s": 1800,
+    "versions": {
+      "matlab": "25.1.0.2973910 (R2025a) Update 1",
+      "cora": "CORA v2026.1.0"
+    }
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T17:09:58+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15"
+    }
+  },
+  "extra": {
+    "horizon_covered": false,
+    "reachable_set_end_time": 1.7,
+    "num_segments": 170,
+    "num_possible": 0,
+    "num_inside": 0
+  }
+}

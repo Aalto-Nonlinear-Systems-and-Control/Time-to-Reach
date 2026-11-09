@@ -1,0 +1,19 @@
+[project]
+name = "time-to-reach-benchmarks"
+version = "0.1.0"
+description = "Benchmarks comparing reachability tools with Koopman reach-time bounds (KRTB)."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = [
+    # raised inside mpmath when sympy evaluates complex expressions
+    "ignore:bitcount function is deprecated:DeprecationWarning",
+]
+markers = [
+    "slow: long-running tests",
+    "matlab: requires MATLAB",
+    "julia: requires Julia",
+    "docker: requires Docker (dReach)",
+]

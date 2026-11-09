@@ -1,0 +1,25 @@
+# Python environment for the Python-based tools (KRTB, HJ) and the shared checks.
+#   mamba env create -f environment.yml
+#   conda activate time_to_reach
+# MOSEK needs a license file (default location ~/mosek/mosek.lic).
+name: time_to_reach
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.15
+  - numpy=2.2.6
+  - scipy=1.18.1
+  - sympy=1.14.0
+  - matplotlib=3.11.2
+  - tqdm=4.70.1
+  - pytest=9.1.1
+  - pip
+  - pip:
+      - jax==0.11.2
+      - jaxlib==0.11.2
+      - flax==0.12.10
+      - hj_reachability==0.7.0
+      - cvxpy==1.9.3
+      - Mosek==11.2.6
+      - portion==2.6.1
+      - jsonschema==4.25.1

@@ -1,0 +1,37 @@
+{
+  "tool": "cora",
+  "settings": {
+    "setting_0": {
+      "description": "CORA v2026.1.0 (submodule tools/cora/CORA), nonlinearSys with the conservative linearization algorithm 'lin' and one initial zonotope, parameters of the original runners: taylorTerms 4, zonotopeOrder 50, tensorOrder 2, timeStep 0.01 (DUFF_FIN_REA_BOX 0.005; CP_LQR taylorTerms 3, timeStep 0.05). Benchmarks that are not a forward problem from one initial box to one target box are reported as unsupported and their parameters are not used.",
+      "defaults": {
+        "matlab_release": "R2025a",
+        "alg": "lin",
+        "tensorOrder": 2,
+        "taylorTerms": 4,
+        "zonotopeOrder": 50,
+        "timeStep": 0.01,
+        "timeout_s": 1800
+      },
+      "benchmarks": {
+        "CP_LQR_FIN_REA_CONVERGE": {},
+        "CP_LQR_FIN_REA_UNSAFE": {},
+        "CP_LQR_FIN_UNR_SAFE": {},
+        "DUFF_FIN_REA_BALL": {},
+        "DUFF_FIN_REA_BOX": {
+          "timeStep": 0.005
+        },
+        "DUFF_FIN_REA_DISJOINT_BOX": {},
+        "DUFF_FIN_REA_NONCONVEX_LEVEL_SET": {},
+        "DUFF_FIN_UNR_BALL": {},
+        "DUFF_FIN_UNR_BOX": {},
+        "MAS_CON_FIN_REA_BOX": {},
+        "MAS_CON_FIN_UNR_SAFE_0": {},
+        "MAS_CON_FIN_UNR_SAFE_1": {},
+        "NL_EIG_FIN_BACKWARD_REA_BOX": {},
+        "NL_EIG_FIN_BACKWARD_UNR_BOX": {},
+        "NL_SLC_FIN_REA_BOX": {},
+        "NL_SLC_FIN_UNR_BOX": {}
+      }
+    }
+  }
+}

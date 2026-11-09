@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "benchmark": "NL_SLC_FIN_UNR_BOX",
+  "tool": "krtb",
+  "setting": "setting_0",
+  "verdict": "unreachable_estimated",
+  "expected_result": "unreachable",
+  "agrees_with_expected": true,
+  "detail": "reach-time bounds do not meet the time horizon",
+  "time_horizon": [0.0, 15.0],
+  "horizon_covered": true,
+  "reach_time_bounds": [],
+  "runtime_s": {
+    "total": 0.022119207977084443,
+    "setup": 0.007544749998487532,
+    "eigenpairs": 0.005522583000129089,
+    "bounds": 0.009051375003764406,
+    "krtb": 0.014573958003893495,
+    "witness_search": 4.999747034162283e-07
+  },
+  "params": {
+    "num_samples_initial": 2000,
+    "num_samples_target": 2000,
+    "boundary_samples_initial": 2000,
+    "boundary_samples_target": 2000,
+    "num_sim_samples": 100,
+    "seed": 0,
+    "path_integral": {
+      "rtol": 1e-12,
+      "atol": 1e-14,
+      "batch": 64,
+      "dt": 0.02
+    },
+    "eigenfunctions": {
+      "method": "analytic",
+      "functions": ["(1 - x1^2 - x2^2)^2*exp(I*atan2(x2, x1))", "(1 - x1^2 - x2^2)^2*exp(-I*atan2(x2, x1))"],
+      "eigenvalues": ["-1-1j", "-1+1j"]
+    }
+  },
+  "provenance": {
+    "git_commit": "e7b400355531d201bb3910d87c86cb082ffc2171",
+    "git_dirty": true,
+    "timestamp": "2026-11-06T16:24:33+00:00",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0",
+      "cvxpy": "1.9.3",
+      "Mosek": "11.2.6"
+    }
+  },
+  "extra": {
+    "direction": "forward",
+    "eigenvalues": [
+      [-1.0, -1.0],
+      [-1.0, 1.0]
+    ],
+    "eigenfunctions": {
+      "method": "analytic",
+      "functions": ["(1 - x1^2 - x2^2)^2*exp(I*atan2(x2, x1))", "(1 - x1^2 - x2^2)^2*exp(-I*atan2(x2, x1))"],
+      "max_relative_eigen_residual": 9.557443504251727e-15
+    },
+    "bounds_status": "empty",
+    "bounds_unclipped": [],
+    "magnitude_interval": [2.9344256045522785, 3.7457459109196773],
+    "phase_window": [-0.08697851159587278, 0.08697851159587267],
+    "period": 6.283185307179586,
+    "bound_details": {
+      "magnitude": {
+        "growing_cone": ["-inf", "inf"],
+        "decaying_cone": [2.9344256045522785, 3.7457459109196773],
+        "lfp_status": ["infeasible", "infeasible", "optimal", "optimal"]
+      },
+      "phase": {
+        "lfp_status": ["optimal", "optimal"],
+        "weights": [0.0, 1.0]
+      }
+    },
+    "witness": null,
+    "num_samples": {
+      "initial": 4004,
+      "target": 4004
+    }
+  }
+}

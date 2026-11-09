@@ -1,0 +1,13 @@
+[deps]
+IntervalArithmetic = "d1acc4aa-44c8-5952-acd4-ba5d80a2a253"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+LazySets = "b4f0291d-fe17-52bc-9479-3d1a343d9043"
+ReachabilityAnalysis = "1e97bd63-91d1-579d-8e8d-501d2b57c93f"
+TaylorModels = "314ce334-5f6e-57ae-acf6-00b6e903104a"
+
+[compat]
+IntervalArithmetic = "=1.0.12"
+LazySets = "=7.1.0"
+ReachabilityAnalysis = "=0.33.0"
+TaylorModels = "=0.11.1"
+julia = "1.13"

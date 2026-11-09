@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "benchmark": "MAS_CON_FIN_UNR_SAFE_1",
+  "tool": "ground_truth",
+  "setting": "simulation",
+  "verdict": "unreachable_estimated",
+  "expected_result": "unreachable",
+  "agrees_with_expected": true,
+  "detail": "no sampled trajectory reaches the target; closest approach 5.087 (euclidean_distance)",
+  "time_horizon": [0.0, 7.0],
+  "horizon_covered": true,
+  "reach_time_bounds": null,
+  "runtime_s": {
+    "total": 12.663523541006725
+  },
+  "params": {
+    "direction": "forward",
+    "integrator": "DOP853",
+    "rtol": 1e-09,
+    "atol": 1e-11,
+    "event_detection": true
+  },
+  "provenance": {
+    "git_commit": "48463789a2a4ca92a8193c740238cac0cd898527",
+    "git_dirty": false,
+    "timestamp": "2026-10-15T09:06:46+00:00",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "versions": {
+      "python": "3.12.15",
+      "numpy": "2.2.6",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0"
+    }
+  },
+  "extra": {
+    "samples": {
+      "interior": 1000,
+      "boundary": 1000,
+      "unique_initial_points": 2000,
+      "seed": 0
+    },
+    "num_hitting": 0,
+    "num_trajectories": 2000,
+    "closest_approach": {
+      "value": 5.086718752175936,
+      "kind": "euclidean_distance",
+      "x0": [2.2917914628373435, -1.22870703, -1.7372411449858547, 1.7924160826797937, 1.9727177864853664, -1.579753377509787, -0.38098337214159356, 1.009479695951934, 1.7834098404365881, -1.6401261831298073, 0.8199292117756883, 1.4704201554157401, 0.1895188886208529, -1.7756894924113706, -2.336525321299491, -1.1305498101154976],
+      "time": 3.878
+    },
+    "max_domain_violation": 0.0,
+    "problems": [],
+    "info": []
+  }
+}
