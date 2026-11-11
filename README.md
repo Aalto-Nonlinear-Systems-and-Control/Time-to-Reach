@@ -6,11 +6,15 @@
 
 <p align="center"><img src="docs/pipeline.gif" width="100%" alt="Pipeline of the method: reach-time bounds from the Koopman spectrum, and verification with the bounds"></p>
 
-This repository holds the code, the benchmarks and the results of the paper *Time-to-reach Bounds for Verification of Dynamical Systems Using the Koopman Spectrum* by Jianqiang Ding and Shankar A. Deka.
+This repository holds the code, the benchmarks and the results of the paper _Time-to-reach Bounds for Verification of Dynamical Systems Using the Koopman Spectrum_ by Jianqiang Ding and Shankar A. Deka.
 
 ## Contents
 
+- [Contents](#contents)
 - [Reproducing the paper](#reproducing-the-paper)
+  - [Environment](#environment)
+  - [Table II: comparison of the tools](#table-ii-comparison-of-the-tools)
+  - [Figures](#figures)
 - [Benchmarks](#benchmarks)
 - [Results](#results)
 - [Tool settings](#tool-settings)
@@ -41,12 +45,12 @@ conda activate time_to_reach
 
 KRTB, the simulation baseline, HJ and all scripts need only this environment. KRTB solves small linear-fractional programs with MOSEK through cvxpy. MOSEK needs a licence file, by default at `~/mosek/mosek.lic`; academic licences are free. The other tools need:
 
-| Tool           | Needs                                                                                                                                                          |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CORA           | MATLAB R2025a, found through `$MATLAB_BIN`, `/Applications/MATLAB_R2025a.app` or `matlab` on the `PATH`. CORA v2026.1.0 is the submodule `tools/cora/CORA`. |
-| SOSTOOLS       | MATLAB R2025a with MOSEK for MATLAB; the results were computed with MOSEK 11.0.25. SOSTOOLS v4.03 is the submodule `tools/sosbc/SOSTOOLS`.                   |
-| JuliaReach     | Julia 1.13.1 (for example with juliaup), then `julia --project=tools/juliareach -e 'using Pkg; Pkg.instantiate()'`.                                            |
-| dReach         | Docker. Build the image with `docker build --platform linux/amd64 -t dreach:dreal3-7f31797b tools/dreach`. It is x86-64 only, so it runs under emulation on Apple Silicon. |
+| Tool       | Needs                                                                                                                                                                      |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CORA       | MATLAB R2025a, found through `$MATLAB_BIN`, `/Applications/MATLAB_R2025a.app` or `matlab` on the `PATH`. CORA v2026.1.0 is the submodule `tools/cora/CORA`.                |
+| SOSTOOLS   | MATLAB R2025a with MOSEK for MATLAB; the results were computed with MOSEK 11.0.25. SOSTOOLS v4.03 is the submodule `tools/sosbc/SOSTOOLS`.                                 |
+| JuliaReach | Julia 1.13.1 (for example with juliaup), then `julia --project=tools/juliareach -e 'using Pkg; Pkg.instantiate()'`.                                                        |
+| dReach     | Docker. Build the image with `docker build --platform linux/amd64 -t dreach:dreal3-7f31797b tools/dreach`. It is x86-64 only, so it runs under emulation on Apple Silicon. |
 
 All commands below run from the repository root in the `time_to_reach` environment.
 
@@ -69,7 +73,7 @@ python -m scripts.aggregate
 
 Each runner also takes `--benchmark ID` for a single benchmark. A runner writes one record per benchmark to `results/summary/<tool>/<ID>/setting_0.json`. A record holds the verdict, the reach-time bounds, the timings, the parameters and the provenance (commit, platform, versions).
 
-`scripts.evaluate_results` compares each record with the simulation baseline. It exits with an error if a tool claims "unreachable" for a benchmark that a simulated trajectory reaches. The tables in `results/summary/` are generated from the records, so they do not need editing by hand.
+`scripts.evaluate_results` compares each record with the simulation baseline. It exits with an error if a tool claims "unreachable" for a benchmark that a simulated trajectory reaches. The tables in `results/summary/` are generated from the records.
 
 ### Figures
 
@@ -100,7 +104,7 @@ The 16 benchmarks come from five systems:
 
 </div>
 
-The IDs of the configs in `configs/benchmarks/` are longer than the names in the paper. The mapping is:
+Names in the paper and config IDs (`configs/benchmarks/`):
 
 <div align="center">
 
@@ -128,12 +132,12 @@ The IDs of the configs in `configs/benchmarks/` are longer than the names in the
 How to read the table:
 
 - **Expected result.** "Reachable" means that some trajectory from the initial set enters the target within the horizon. "Unreachable" means that none does.
-- **Box shells.** A box shell at the origin is the box ‖x‖∞ ≤ R without the open box ‖x‖∞ < 10⁻³⁰. The target thus excludes the equilibrium, as the time-to-reach bounds require. R is 10⁻³ for the cart-pole and 0.1 for the multi-agent system.
+- **Box shells.** A box shell at the origin is the box ‖x‖∞ ≤ R without the open box ‖x‖∞ < 10⁻³⁰, so it excludes the equilibrium. R is 10⁻³ for the cart-pole and 0.1 for the multi-agent system.
 - **Simulation baseline.** `scripts.check_benchmarks` confirms every expected result by simulation. It also records the simulated in-target times, which are used to judge the reach-time bounds.
 
-**The cart-pole (Example 2).** The paper gives the model but not the controller:
+**The cart-pole (Example 2):**
 
-- **Model.** Tedrake's cart-pole as printed in the paper. The pole angle is measured counter-clockwise from the hanging vertical, so the origin is the hanging equilibrium.
+- **Model.** Tedrake's cart-pole. The pole angle is measured counter-clockwise from the hanging vertical; the origin is the hanging equilibrium.
 - **Controller.** The LQR feedback F = −Kx with K = [2.907, 4.877, −3.770, −1.640], designed for the linearisation at the hanging equilibrium with Q = diag(56.5349, 27.434, 1.8689, 77.9197) and R = 6.6884.
 - **Sets.** The initial set is the single state x0 = (0.8, 0.3, −π/4, 0.2). The wall targets are restricted to the box X = [−0.06, 4] × [−0.88, 0.7] × [−0.83, 0.66] × [−1.72, 2.82].
 
@@ -148,7 +152,7 @@ python -m scripts.cartpole_lqr --write-configs
 
 ## Results
 
-Table II of the paper, from `results/summary/` (`python -m scripts.paper_table`), in two parts. REA or UNR in the name of a benchmark gives its expected result; the systems are listed under [Benchmarks](#benchmarks).
+Table II of the paper, generated from `results/summary/` by `python -m scripts.paper_table`. REA or UNR in a benchmark's name gives its expected result.
 
 Times are in seconds. They count each tool's core computation: everything needed for the verdict, but not JIT compilation, MATLAB start-up, CORA derivative generation or container start-up. KRTB's time has two parts:
 
@@ -220,7 +224,7 @@ The tools ran on a computer with an Apple M5 CPU and 32 GB of RAM; dReach runs i
 
 ## Tool settings
 
-Every tool runs in one setting, `setting_0` in `configs/settings/<tool>.json`. Each setting comes with a description of its parameters. Every tool is used with its native capabilities only: a runner does not split sets or translate a problem for a tool. A benchmark outside a tool's scope is reported as N/A, with the reason given in its result record.
+Every tool runs in one setting, `setting_0` in `configs/settings/<tool>.json`. Each setting comes with a description of its parameters. A benchmark outside a tool's scope is reported as N/A, with the reason given in its result record.
 
 - **KRTB.** The principal eigenfunctions come from one of two sources:
   - analytic expressions, for NL-SLC and NL-EIG;
@@ -231,24 +235,28 @@ Every tool runs in one setting, `setting_0` in `configs/settings/<tool>.json`. E
   - Cart-pole targets: 5000–10000 interior points, 2000 boundary points and 20000 points towards the vertices of the bounding box.
   - Multi-agent sets: 100 interior points, 100 boundary points and 2000 vertex points.
 
-  A box-shell target also gets one point of its inner faces, where the principal eigenfunctions, which vanish at the equilibrium, are smallest. With these counts the sampled extrema have converged. The cart-pole wall targets are restricted to a box inside the basin of attraction of the closed loop, where the eigenfunctions are defined; `python -m scripts.cartpole_lqr --basin` checks this.
+  A box-shell target also gets one point on its inner faces. The cart-pole wall targets are restricted to a box inside the basin of attraction of the closed loop; `python -m scripts.cartpole_lqr --basin` checks this.
+
 - **CORA v2026.1.0.** Uses `nonlinearSys` with the conservative linearisation algorithm `lin` and one initial zonotope. The parameters are taylorTerms 4, zonotopeOrder 50, tensorOrder 2 and timeStep 0.01, with two exceptions:
   - DUFF_FIN_REA_BOX: timeStep 0.005;
   - cart-pole: taylorTerms 3 and timeStep 0.05.
 
   CORA is applied to forward problems from one box to one box or box shell. A reachable set lies inside a box shell if it lies in the outer box and does not meet the inner one.
+
 - **JuliaReach.** ReachabilityAnalysis.jl 0.33.0 with TMJets and one initial box. The parameters are:
   - 2D benchmarks: abstol 1e-12 and orderT 7;
   - cart-pole and multi-agent: abstol 1e-10 and orderT 5;
   - all benchmarks: orderQ 1 and maxsteps 20000.
 
   JuliaReach is applied to forward problems from one box to one box or box shell. A reachable set lies inside a box shell if it lies in the outer box and does not meet the inner one.
+
 - **dReach.** dReal3 at commit 7f31797b, with one mode and no jumps (`-k 0`). The precision δ is 1e-3, except 1e-5 for CP_LQR_FIN_REA_CONVERGE.
 - **hj_reachability 0.7.0.** Computes the backward reachable tube on a uniform grid:
   - 2D benchmarks: 500 nodes per dimension, accuracy `medium`;
   - 4D and 16D benchmarks: 100 nodes per dimension, accuracy `low`.
 
   Each computation runs in its own process with a memory limit of 8 GB.
+
 - **SOSTOOLS v4.03 with MOSEK.** Searches for a barrier certificate of degree 16, with B ≥ 1 on the boundary of the domain. It applies to polynomial dynamics and sets only.
 
 The time limit is 1800 s for every tool.
@@ -288,4 +296,4 @@ The tests cover the following:
 | `docs/pipeline.gif`            | The animated pipeline figure above                                                               |
 | `Benchmark_Specifications.pdf` | Every benchmark with its specification and the result of every tool                              |
 
-Everything a run writes outside `results/summary/` goes to other folders under `results/`, such as raw tool output, figures and videos. These folders are not tracked.
+Runs write raw tool output, figures and videos to other folders under `results/`, which are not part of the repository.
